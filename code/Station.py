@@ -12,3 +12,9 @@ for station in tree.findall('station'):
     eva = station.get('eva')
     #print(station.attrib)
     print(station.get('name'),eva)
+cities = []
+with open("..\\misc\\table-1.csv","r") as file:
+    for line in file:
+        city = line.strip().split(';')
+        cities.append(city[1])
+print(cities)
