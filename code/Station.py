@@ -39,7 +39,7 @@ def computeEvaNums(cities, base_request_string, authToken,resultArr):
 # array with all city names
 cities = readCity("..\\misc\\table-1.csv")
 
-
+#test
 # the base request string for recieving eva numbers
 base_request_string = "https://api.deutschebahn.com/timetables/v1/station/"
 resultArr = []
