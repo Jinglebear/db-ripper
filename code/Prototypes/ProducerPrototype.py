@@ -11,9 +11,9 @@ headers = {
 }
 timeIntervalInSec = 10
 topic = 'RecentChangedTrain'
+bootstrap_servers=['localhost:29092']
 
-
-producer = KafkaProducer(bootstrap_servers=['localhost:29092'])
+producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
 
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
