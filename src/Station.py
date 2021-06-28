@@ -1,3 +1,4 @@
+from os import error
 import requests
 import xml.etree.ElementTree as ET
 import time
@@ -44,12 +45,18 @@ def computeEvaNums(cityIDs, base_request_string, authToken,resultArr,failArr):
             response_status_code = response.status_code
             if(response_status_code == 200):
                 data = json.loads(response.text)
-                result_list = data['result']
-                evaNumbers_list = result_list[0]['evaNumbers']
-                evaNumber = evaNumbers_list[0]['number']
-                eva_tupel = (city_ID[0],evaNumber)
-                resultArr.append(eva_tupel)
-                print(eva_tupel,flush=True)
+                try:
+                    result_list = data['result']
+                    evaNumbers_list = result_list[0]['evaNumbers']
+                    evaNumber = evaNumbers_list[0]['number']
+                    eva_tupel = (city_ID[0],evaNumber)
+                    resultArr.append(eva_tupel)
+                    print(eva_tupel,flush=True)
+                except IndexError:
+                    print("Fehler! :-(")
+                    failArr.append(city_ID + '(IndexError)')
+                except:
+                    print('Fehler ! :-(')
             else:
                 print("fail")
                 failArr.append(city_ID)
