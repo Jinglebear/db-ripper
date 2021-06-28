@@ -1,19 +1,30 @@
 import requests 
-import xml.etree.ElementTree as ET 
-
+import json
+import pprint
  
 
 headers = {
-    'Accept': 'application/xml',
-    'Authorization': 'Bearer 13d747ec4d3615f93cca7dcf7f203389',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer 873be58d3db312b4e52a2102e5641c27',
 }
 
  
 
-response = requests.get('https://api.deutschebahn.com/timetables/v1/rchg/8000240', headers=headers)
-tree = ET.fromstring(response.text)
-for element in tree:
-    print(element)
-    print(element.tag)
-    print(element.attrib)
-    print()
+response = requests.get('https://api.deutschebahn.com/stada/v2/stations/82', headers=headers)
+data = json.loads(response.text)
+#print(type(data))
+#result = data['result']
+#print(type(result))
+#evaNumbers = result[0]['evaNumbers']
+#print(type(evaNumbers))
+pp = pprint.PrettyPrinter()
+
+
+result_list = data['result']
+#print(type(result_list))
+#pp.pprint(result_list)
+
+evaNumbers_list = result_list[0]['evaNumbers']
+#print(type(evaNumbers_list))
+evaNumber = evaNumbers_list[0]['number']
+print(evaNumber)
