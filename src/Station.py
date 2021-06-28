@@ -54,7 +54,8 @@ def computeEvaNums(cityIDs, base_request_string, authToken,resultArr,failArr):
                     print(eva_tupel,flush=True)
                 except IndexError:
                     print("Fehler! :-(")
-                    failArr.append(city_ID + '(IndexError)')
+                    failArr.append(city_ID)
+                    failArr.append("(IndexError)")
                 except:
                     print('Fehler ! :-(')
             else:
