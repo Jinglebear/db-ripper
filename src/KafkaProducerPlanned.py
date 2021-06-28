@@ -2,8 +2,7 @@ from datetime import datetime
 import time
 from kafka import KafkaProducer
 import requests 
-import xml.etree.ElementTree as ET 
-from Station import Utils as u
+import Utils as u
 
 # load constants
 headers = u.TimeTableHeader1
