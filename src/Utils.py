@@ -26,10 +26,12 @@ topicForChangedTimetabled = 'changed'
 bootstrap_servers = ['localhost:29092']
 
 # timeInterval in seconds
-planTimeInterval = 3600
+planTimeInterval = 10
 changeTimeInterval = 60
 
 # file
 # csv file
-cityEvaRead = open('../misc/table-1-result.csv', 'r')
-cityEvaWrite = open('../misc/table-1-result.csv', 'w')
+def cityEvaRead():
+    return open('../misc/table-1-result.csv', 'r')
+def cityEvaWrite():
+    return open('../misc/table-1-result.csv', 'w')
