@@ -31,4 +31,5 @@ changeTimeInterval = 60
 
 # file
 # csv file
-cityEva = '../misc/table-1-result.csv'
+cityEvaRead = open('../misc/table-1-result.csv', 'r')
+cityEvaWrite = open('../misc/table-1-result.csv', 'w')

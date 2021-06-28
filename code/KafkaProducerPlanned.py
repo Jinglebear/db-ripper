@@ -17,7 +17,7 @@ def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
 
 # get eva-number from csv
-csvfile = open(u.cityEva, "r")
+csvfile = u.cityEvaRead
 eva_numbers = []
 for line in csvfile:
     lineArr = line.strip().split(",")
@@ -25,8 +25,7 @@ for line in csvfile:
 
 # begin to work when on the clock the minute is 00
 now = datetime.now()
-print(str(60-now.minute))
-#time.sleep(60-now.seconds)
+time.sleep(60-now.seconds)
 
 # Produce information end send to kafka
 while True:
