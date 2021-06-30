@@ -1,90 +1,95 @@
-from os import error
-import requests
-import xml.etree.ElementTree as ET
 import time
+import requests
 import csv
-import json
-### readCityIDs and Names
-#
-# read in city IDS and names from file
 
 
-def readCityIDs(filename):
-    cityIDS = []
-    with open(filename, "r") as file:
-        for line in file:
-            city = line.strip().split(';')
-            city_ID = city[0]
-            city_name = city[1]
-            city_tupel = (city_name, city_ID)
-            cityIDS.append(city_tupel)
-    return cityIDS
+def readStation(filename):
+    stations = []
+    with open(filename, encoding='utf-8') as file:
+        skip = True  # skip first row of csv file
+        reader = csv.reader(file)
+        for row in reader:
+            if(not skip):
+                splitted_string = row[0].split(',')
+                station_triplet = (
+                    splitted_string[1], splitted_string[0], splitted_string[4])
+                stations.append(station_triplet)
+            skip = False
+    return stations
 
 
-# array with all city ID's
-cityIDs = readCityIDs("..\\misc\\table-1.csv")
+# array with the important station data
+stations = readStation("..\\misc\\Mappe1.csv")
 
 
-# computeEvaNums
-#
-# @param city(array containing city names that own railway stations)
-# @param base_request_string (the URL used for this request)
-# @param authToken (the authorization Token used for the DB API)
-# @param resultArr (the array were all railway station names with belonging eva numbers are stored)
-#
-# collect every eva number for the station in cities (array)
-# write the resulting table into a .csv
-def computeEvaNums(cityIDs, base_request_string, authToken, resultArr, failArr):
-    headers = {
-        'Accept': 'application/json',
-        'Authorization': authToken
-    }
-    counter = 0
-    for city_ID in cityIDs:
+def getEvaNum(station, base_request_string, header, resultArr, failArr):
+    response = requests.get(
+        base_request_string+station[1], headers=header)
+    response_status_code = response.status_code
+    response = response.json()  # json encoding of response
+    if(response_status_code == 200):  # sucessful response code
+        evaNumber = response['result'][0]['evaNumbers'][0]['number']
+        eva_triplet = (station[0], evaNumber, station[2])
+        resultArr.append(eva_triplet)
+        print(eva_triplet, flush=True)  # debug
+    else:
+        print("ERROR: "+str(response_status_code), flush=True)  # debug
+        failArr.append(station)
+
+
+def computeEvaNums(stations, base_request_string, headers, resultArr, failArr):
+    counter1 = 0
+    counter2 = 0
+    counter3 = 0
+    counter4 = 0
+    for station in stations:
         try:
-            if (counter < 100):
-                response = requests.get(
-                    base_request_string+city_ID[1], headers=headers)
-                counter = counter + 1
-                response_status_code = response.status_code
-                response = response.json()
-                if(response_status_code == 200):
-
-                    result_list = response['result']
-                    evaNumbers_list = result_list[0]['evaNumbers']
-                    evaNumber = evaNumbers_list[0]['number']
-                    eva_tupel = (city_ID[0], evaNumber)
-                    resultArr.append(eva_tupel)
-                    print(eva_tupel, flush=True)
-
-                else:
-                    print("fail", flush=True)
-                    failArr.append(city_ID)
-            else:
-                print('sleeping...', flush=True)
+            if (counter1 < 100):
+                counter1 += 1
+                getEvaNum(station=station, base_request_string=base_request_string,
+                          header=headers[0], resultArr=resultArr, failArr=failArr)
+            elif(counter2 < 100):
+                counter2 += 1
+                getEvaNum(station=station, base_request_string=base_request_string,
+                          header=headers[1], resultArr=resultArr, failArr=failArr)
+            elif(counter3 < 100):
+                counter3 += 1
+                getEvaNum(station=station, base_request_string=base_request_string,
+                          header=headers[2], resultArr=resultArr, failArr=failArr)
+            elif(counter4 < 100):
+                counter4 += 1
+                getEvaNum(station=station, base_request_string=base_request_string,
+                          header=headers[3], resultArr=resultArr, failArr=failArr)
+            if(counter1 == 100 and counter2 == 100 and counter3 == 100 and counter4 == 100):
                 time.sleep(60)
-                counter = 0
+                counter1 = 0
+                counter2 = 0
+                counter3 = 0
+                counter4 = 0
         except IndexError:
-            print("Fehler! :-(", flush=True)
-            failArr.append(city_ID)
+            print("ERROR: IndexError", flush=True)  # debug
+            failArr.append(station)
             failArr.append("(IndexError)")
         except:
-            print('Fehler ! :-(', flush=True)
+            print("ERROR: UnkownError", flush=True)  # debug
 
 
-# the base request string for recieving eva numbers
 base_request_string = "https://api.deutschebahn.com/stada/v2/stations/"
 resultArr = []
 failArr = []
-computeEvaNums(cityIDs, base_request_string,
-               'Bearer 873be58d3db312b4e52a2102e5641c27', resultArr, failArr)
-
-# time.sleep(120)
-with open("..\\misc\\table-1-result.csv", "w") as resultfile:
+tokenArr = ['Bearer c63151b12eb8b7a48ef869a72c77c15f', 'Bearer 0548da9b09541d93c01c2685f5e8a611',
+            'Bearer 9813ceeae64e273dca14d615405395d7', 'Bearer 194291fed31c8daf95c8d45f22254399']
+headers_arr = [{'Accept': 'application/json',
+               'Authorization': tokenArr[0]}, {'Accept': 'application/json',
+               'Authorization': tokenArr[1]}, {'Accept': 'application/json',
+               'Authorization': tokenArr[2]}, {'Accept': 'application/json',
+               'Authorization': tokenArr[3]}]
+computeEvaNums(stations, base_request_string, headers_arr, resultArr, failArr)
+with open("..\\misc\\table-1-result.csv", "w", encoding='utf-8') as resultfile:
     writer = csv.writer(resultfile)
     for result in resultArr:
         writer.writerow(result)
-with open("..\\misc\\table-1-fail.csv", "w") as failfile:
+with open("..\\misc\\table-1-fail.csv", "w", encoding='utf-8') as failfile:
     writer = csv.writer(failfile)
     for fail in failArr:
         writer.writerow(fail)
