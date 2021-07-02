@@ -63,6 +63,17 @@ def connect_elasticsearch():
     return _es
 
 # create Index on given elasticsearch_object, indexName can be given or use default
+import threading
+def synchronized(func):
+	
+    func.__lock__ = threading.Lock()
+		
+    def synced_func(*args, **kws):
+        with func.__lock__:
+            return func(*args, **kws)
+
+    return synced_func
+@synchronized
 def create_index(_es, index_name=esIndex):
     created = False
     settings = {
@@ -73,7 +84,7 @@ def create_index(_es, index_name=esIndex):
     }
 
     try:
-        if not _es.indices.exists():
+        if not _es.indices.exists(index_name):
             _es.indices.create(index=index_name, ignore=400, body=settings)
             print('Created Index')
         created = True
