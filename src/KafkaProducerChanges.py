@@ -9,7 +9,8 @@ import Utils
 # iterate over eva numbers and send response to kafka in a thread
 def work_thread(producer, eva_numbers):
     for eva in eva_numbers:
-        response = requests.get(Utils.get_changes_url(eva))
+        
+        response = requests.get(Utils.get_changes_url(eva), headers=Utils.TimeTableHeader2)
     
         producer.send(topic=topic, value=response.content).add_callback(send_on_success)
 
