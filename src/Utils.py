@@ -27,6 +27,8 @@ TimeTableHeader2 = headers = {
 # api urls
 def get_planned_url(eva_number, date, hour_slice):
     return 'https://api.deutschebahn.com/timetables/v1/plan/'+eva_number+'/'+date+'/'+hour_slice
+def get_changes_url(eva_number):
+    return 'https://api.deutschebahn.com/timetables/v1/rchg/'+eva_number
 
 # =======================================
 # Kafka
