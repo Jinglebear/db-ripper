@@ -8,7 +8,7 @@ headers = {
     'Authorization': 'Bearer 873be58d3db312b4e52a2102e5641c27',
 }
 
- 
+#this line was typed on the vm 
 
 response = requests.get('https://api.deutschebahn.com/stada/v2/stations/82', headers=headers)
 data = json.loads(response.text)
