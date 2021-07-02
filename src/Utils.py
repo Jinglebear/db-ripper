@@ -1,5 +1,7 @@
 from pathlib import Path
 
+# ==================================
+# API
 # autorization token for DPApi
 authToken1 = 'Bearer 13d747ec4d3615f93cca7dcf7f203389'
 authToken2 = 'Bearer 873be58d3db312b4e52a2102e5641c27'
@@ -25,7 +27,11 @@ TimeTableHeader2 = headers = {
 # api urls
 def get_planned_url(eva_number, date, hour_slice):
     return 'https://api.deutschebahn.com/timetables/v1/plan/'+eva_number+'/'+date+'/'+hour_slice
+def get_changes_url(eva_number):
+    return 'https://api.deutschebahn.com/timetables/v1/rchg/'+eva_number
 
+# =======================================
+# Kafka
 # topic names
 topicForPlannedTimetables = 'planned'
 topicForChangedTimetabled = 'changed'
@@ -37,9 +43,54 @@ bootstrap_servers = ['localhost:29092']
 planTimeInterval = 10
 changeTimeInterval = 60
 
-# file
+# =======================================
+# config files
 # csv file
 def cityEvaRead():
     return open('../misc/table-1-result.csv', 'r')
 def cityEvaWrite():
     return open('../misc/table-1-result.csv', 'w')
+
+# =====================================
+# Elasticsearch
+from elasticsearch import Elasticsearch
+
+# default Index for elasticsearch
+esIndex = 'timetable'
+
+# connect with elasticsearch returns an elasticsearch_object
+def connect_elasticsearch():
+    _es = None
+    _es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    return _es
+
+# create Index on given elasticsearch_object, indexName can be given or use default
+import threading
+def synchronized(func):
+	
+    func.__lock__ = threading.Lock()
+		
+    def synced_func(*args, **kws):
+        with func.__lock__:
+            return func(*args, **kws)
+
+    return synced_func
+@synchronized
+def create_index(_es, index_name=esIndex):
+    created = False
+    settings = {
+        "settings": {
+            "number_of_shards": 1,
+            "number_of_replicas": 0
+        }
+    }
+
+    try:
+        if not _es.indices.exists(index_name):
+            _es.indices.create(index=index_name, ignore=400, body=settings)
+            print('Created Index')
+        created = True
+    except Exception as ex:
+        print(str(ex))
+    finally:
+        return created
