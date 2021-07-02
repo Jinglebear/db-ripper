@@ -1,2048 +1,288 @@
-Bahnhof,Bahnhofs-Nummer,Bahnhofs-Kategorie (2015)
-
-Achterwehr,7225,7
-
-Ahrensburg-Gartenholz,8169,5
-
-Ahrensfelde,28,4
-
 Aken (Elbe),38,6
-
-Albersdorf,41,7
-
-Albersweiler (Pfalz),42,6
-
-Aldingen,7960,6
-
-Aletshausen,52,7
-
-Allensbach,60,4
-
-Allermöhe,7979,4
-
-Allermöhe (S-Bahn),7979,4
-
 Alt Schwerin,72,6
-
-Alt-Reinickendorf,7719,6
-
-Altbach,73,3
-
-Altenbamberg,84,6
-
-Altenbeken,85,2
-
-Altenstadt (Hess),109,6
-
 Altruppin,129,6
-
-Altstädten (Allgäu),131,6
-
 Amorbach,138,6
-
 Amorbach,138,6
-
-Amstetten (Württ),141,5
-
-Amstetten (Württ),141,5
-
-Annweiler am Trifels,158,5
-
-Annweiler-Sarnstall,8242,7
-
-Arenshausen,172,6
-
-Arfurt (Lahn),173,6
-
-Arzberg (Oberfr),186,6
-
-Aschaffenburg Hbf,187,2
-
-Auehütte,208,7
-
-Auerbach (b Mosbach),209,6
-
-Augsburg Messe,7996,5
-
 AW Paderborn,7581,6
-
-Babenhausen Langstadt,3564,7
-
-Bad Belzig,478,5
-
-Bad Breisig,259,5
-
-Bad Fallingbostel,1760,5
-
 Bad Frankenhausen (Kyffh),275,4
-
-Bad Homburg,284,3
-
-Bad Honnef (Rhein),285,5
-
-Bad Kötzting,3390,6
-
-Bad Kreuznach,296,3
-
 Bad Lauchstädt,299,6
-
 Bad Lauchstädt West,300,6
-
 Bad Mergentheim,305,6
-
-Bad Münder (Deister),306,5
-
-Bad Oeynhausen Süd,316,6
-
-Bad Oldesloe,317,2
-
-Bad Salzdetfurth,328,7
-
-Bad Salzdetfurth-Solebad,8064,7
-
-Bad Schwartau,343,5
-
-Bad Wimpfen,364,6
-
-Bagenz,373,6
-
-Bahnsdorf,374,6
-
-Balingen Süd,386,6
-
-Bärenklau,405,7
-
-Baruth (Mark),421,6
-
-Beeskow,456,6
-
-Bellevue,475,4
-
-Bennungen,486,6
-
-Bergen auf Rügen,499,3
-
-Beringstedt,521,7
-
 Berka (Wipper),522,7
-
-Berlin Potsdamer Platz,5016,2
-
-Berlin-Gesundbrunnen,528,1
-
-Berlin-Pankow,555,5
-
-Berlin-Rummelsburg,556,4
-
-Berlin-Tegel,7721,5
-
-Berliner Tor (S-Bahn),569,3
-
 Bernburg-Friedenshall,574,6
-
-Berne,577,6
-
 Bernsgrün,579,6
-
-Bestwig,591,5
-
 Beucha Ost,600,6
-
-Beusselstraße,7726,4
-
-Bickenbach (Bergstr),618,5
-
-Bietigheim-Ellental,3334,5
-
-Bietingen,637,6
-
 Binde-Kaulitz,646,6
-
-Birresborn,663,6
-
-Blaibach (Oberpf),681,7
-
 Blankenburg Westend,685,6
-
-Blankensee (Meckl),693,6
-
 Blaufelden,697,5
-
 Blumenthal (Mark),715,6
-
-Bobitz,719,7
-
-Bochum-Langendreer,730,4
-
-Bochum-Langendreer West,731,4
-
-Bodenwöhr Nord,743,5
-
 Bödigheim,745,5
-
 Bölzke,760,6
-
-Bondorf (b Herrenberg),762,5
-
-Bopfingen,775,6
-
-Borgsdorf,782,5
-
 Bornitz (b Zeitz),795,4
-
-Borsdorf (Sachs),797,5
-
-Boxberg-Wölchingen,7994,7
-
 Brackwede Süd,812,4
-
-Bramstedt (b Syke),819,6
-
 Brandis,826,7
-
-Braunsdorf-Lichtenwalde,837,7
-
-Brebach,838,5
-
 Brefeld,843,4
-
 Breitendiel,850,7
-
-Breitengüßbach,852,5
-
-Breitscheidt (Kr Altenkirchen),853,6
-
-Breitungen (Werra),854,6
-
-Bremen-Sebaldsbrück,864,5
-
-Bremen-St Magnus,865,5
-
-Brettorf,880,7
-
+Bretzenheim (Nahe),881,6
+IndexError,-1,-1
 Bronnbach (Tauber),897,6
-
-Bruchmühlen,903,6
-
-Bruchsal,904,2
-
 Brügge (Prign),914,6
-
 Buchen (Odenw),930,3
-
 Buchen (Odenw) Ost,931,3
-
-Büchenbach,934,5
-
 Büden,953,5
-
-Budenheim,954,5
-
 Buna Werke,967,7
-
-Burgau (Schwab),979,5
-
-Burgbernheim,980,7
-
-Burgbernheim-Wildbad,981,6
-
-Burgstall (Murr),996,6
-
 Bürstadt (Ried),7177,5
-
-IndexError,IdexError,(Element at top)
-
-Büttgen,1011,5
-
-Buttstädt,1012,7
-
-Camburg (Saale),1026,6
-
-Cammin (Meckl),1027,6
-
-Chamerau,1038,7
-
-Chemnitz Hbf,1040,2
-
-Clarholz,1056,7
-
-Clarholz,1056,7
-
-Coppenbrügge,1069,7
-
+IndexError,-1,-1
 Cossen,1074,6
-
-Cottbus-Willmersdorf,6781,6
-
 Crawinkel,1081,6
-
-Dahlem (Eifel),1105,6
-
-Darlingerode,1125,7
-
-Dattenfeld (Sieg),1135,6
-
-Deisenhofen,1153,4
-
 Dennheritz,1163,5
-
-Densborn,1164,6
-
-Denzlingen,1165,4
-
 Dessow (Mark),1179,6
-
-Detmold,1180,5
-
 Deutschenbora,1189,6
-
-Diebsteich (S-Bahn),1193,5
-
-Dietzenbach-Mitte,7213,5
-
-Dinkelscherben,1222,5
-
 Distelhausen,1228,6
-
 Dittigheim,1233,7
-
 Döbeln Zentrum,1237,6
-
 Döberitz,1238,6
-
-Doberlug-Kirchhain,1240,4
-
-Doberlug-Kirchhain,1240,4
-
-Domnitz (SaalKr),1262,7
-
 Donndorf (Unstrut),1266,4
-
-Dorfen Bahnhof,1268,5
-
-Dörfles-Esbach,1270,6
-
 Dorfprozelten,1272,6
-
-Dörrberg,1282,7
-
-Dorsten,1284,4
-
-Dortmund-Dorstfeld,1304,3
-
-Dortmund-Dorstfeld,1304,3
-
-Dortmund-Mengede,1320,5
-
-Drahnsdorf,1333,6
-
-Drebkau,1337,6
-
-Dreieich-Buchschlag,945,4
-
-Dresden Grenzstraße,1342,6
-
-Dresden Hbf,1343,1
-
-Dresden-Niedersedlitz Hp (DHD),1353,5
-
-Dresden-Pieschen,1354,6
-
-Duisburg-Entenfang,1388,7
-
-Duisburg-Großenbaum,1379,4
-
-Dürrröhrsdorf,1397,6
-
-Düsseldorf Flughafen,1400,2
-
-Düsseldorf-Bilk,1405,4
-
-Ebelsbach-Eltmann,1427,6
-
-Ebersberg (Oberbay),1440,4
-
-Echzell,1452,6
-
-Eckardtsleben,1453,7
-
 Edelfingen,1460,5
-
-Edingen (Kr Wetzlar),1464,6
-
-Edle Krone,1465,6
-
-Effelder (Thür),1467,7
-
-Egling,1482,6
-
-Ehingen (Donau),1483,4
-
 Eich (Sachs),1495,6
-
-Eichborndamm,7722,5
-
 Eickeloh,1508,5
-
-Eickendorf,1509,6
-
-Einfeld,1521,6
-
-Eisfeld,1538,6
-
 Elbingerode (Harz),1543,4
-
-Ellefeld,1548,7
-
-Ellental,3334,5
-
 Elpersheim,1559,3
-
-Elsholz,1562,6
-
-Elsnigk (Anh),1564,6
-
-Elz (Kr Limburg/Lahn),1574,6
-
-Elz (Kr Limburg/Lahn) Süd,1575,7
-
 Emleben,1582,3
-
-Empelde,1589,5
-
-Emsdetten,1590,4
-
-Emskirchen,1591,5
-
-Enspel,1606,6
-
-Erbach (Rheingau),1619,6
-
-Erfurt-Bischleben,1637,5
-
-Erfurt-Gispersleben,1638,6
-
-Ergenzingen,1639,6
-
 Erlenbach (Main),1656,6
-
-Erndtebrück,1659,6
-
-Eschede,1673,6
-
 Eschwege West,1679,4
-
-Espenau-Mönchehof,4161,5
-
 Esperstedt (Kyffh),1687,6
-
-Essen-Kray Nord,1707,6
-
-Esslingen (Neckar),1716,3
-
-Esslingen-Mettingen,1717,3
-
-Esslingen-Zell,1718,4
-
-Euerdorf,1731,7
-
-Euskirchen,1734,3
-
-Fahrenkrug,1747,7
-
-Fahrnau,1749,6
-
 Falkenhagen (Prign),1756,6
-
-Farchant,1764,6
-
 Faulbach (Main),1766,5
-
-Fellbach,1775,3
-
-Felsberg-Altenbrunslar,88,6
-
-Fichtenberg,1788,6
-
-Fischbach-Camphausen,1799,6
-
 Flensburg Weiche,1811,3
-
-Flintbek,1813,6
-
-Flintsbach,1814,6
-
+Flughafen München Besucherpark,1823,4
+IndexError,-1,-1
 Frankenhain,1844,7
-
-Frankfurt (Main) Galluswarte,1863,4
-
-Frankfurt (Main) Stresemannallee,1855,4
-
-Frankfurt (Main) Süd,1856,2
-
-Frankfurt-Berkersheim,1867,5
-
-Frankfurt-Sossenheim,1879,6
-
-Frankfurt-Zeilsheim,8058,5
-
-Freiburg (Breisgau) Hbf,1893,2
-
-Freienorla,1902,7
-
-Freital-Hainsberg West,1913,6
-
 Freudenberg (Main),1920,7
-
-Frickhofen,1926,6
-
-Friedrichsberg (S-Bahn),1941,4
-
-Friedrichshafen-Kluftern,7430,7
-
-Friedrichsruh,1950,7
-
 Friedrichswalde (b Eberswalde),1957,6
-
-Friesenheim (Baden),1962,6
-
-Frimmersdorf,1963,6
-
-Frohburg,1965,6
-
-Fürstenfeldbruck,1977,4
-
 Fürstenhausen,7859,7
-
-Fürth-Unterfürberg,1991,6
-
-Füssen,1992,6
-
-Gablingen,1993,5
-
 Gallin,2002,7
-
 Gamburg (Tauber),2004,7
-
-Garbenteich,2009,6
-
-Gardelegen,2011,6
-
-Gebra (Hainleite),2027,6
-
 Gehofen,2031,6
-
-Geisenheim,2042,5
-
-Geising,2043,6
-
-Gennweiler,7158,6
-
 Genshagener Heide,2063,4
-
 Genzien,2069,4
-
 Georgenthal (Thür),2072,4
-
 Gera Ost,2074,6
-
 Gera-Kaimberg,2076,5
-
-Gera-Langenberg,2077,7
-
 Gera-Liebschwitz,2078,6
-
-Gernlinden,2094,4
-
-Gernrode-Niederorschel,4515,6
-
-Gessertshausen,2110,5
-
-Gettenau-Bingenheim,2111,6
-
-Gießen Erdkauter Weg,1627,6
-
-Gießen Licher Straße,2121,6
-
 Gildenhall,2125,5
-
-Gladbeck-Zweckel,2134,6
-
-Glan-Münchweiler,2136,6
-
 Glanzstoffwerke,2137,6
-
 Gleisberg-Marbach,2144,6
-
-Glückstadt,2151,5
-
-Goldenstedt (Oldb),2173,7
-
 Göllingen (Kyffh),2176,6
-
-Görden,2191,7
-
-Görden,2191,7
-
-Gorgast,2192,6
-
-Gotha,2209,3
-
-Gotha Ost,2210,6
-
 Götschendorf,2211,
-
-Grabow (Meckl),2225,6
-
-Gräfelfing,2227,4
-
 Gräfenroda Ort,2234,
-
-Grafing Stadt,2241,5
-
-Grafling-Arzting,8253,7
-
-Greiz-Dölau,2256,6
-
-Grenzach,2257,5
-
 Grieben (b Gransee),2266,6
-
-Griefstedt,2270,7
-
-Griesen (Oberbay),2271,7
-
-Gronsdorf,2290,4
-
-Groß Ammensleben,2291,6
-
 Groß Garz,2298,6
-
 Groß Gräfendorf,2301,6
-
-Groß Laasch,2308,7
-
 Groß Quassow,2313,6
-
 Groß Quenstedt,2314,6
-
-Großbüllesheim,2329,6
-
-Großfurra,2343,6
-
-Großgeschaidt,2344,7
-
-Großharthau,2345,6
-
 Großstöbnitz,2368,6
-
-Grub (Oberbay),2376,5
-
-Grub (Oberpf),2377,7
-
-Grüneberg,2395,6
-
-Grunow (Niederlausitz),2400,6
-
-Gundelshausen,2415,6
-
-Gundelsheim (Neckar),2416,6
-
 Gunzen,2423,3
-
-Güstrow,2432,3
-
-Gutach (Breisgau),2433,6
-
-Gutach Freilichtmuseum,7113,6
-
 Hachelbich,2445,6
-
-Hachenburg,2446,6
-
-Hackescher Markt,2447,4
-
-Hadamar,2448,6
-
 Hademstorf,2450,7
-
-Hagen-Vorhalle,2463,6
-
-Hagen-Wehringhausen,2464,6
-
 Hagenow,2467,6
-
-Haiger Obertor,2476,7
-
-Hailer-Meerholz,2477,5
-
 Hainstadt (Baden),2481,6
-
-Halbmeil,2492,7
-
-Haldensleben,2493,5
-
-Haldern (Rheinl),2495,6
-
-Halle-Nietleben,2504,6
-
-Hamburg Hbf,2514,1
-
-Hamburg-Altona,2517,1
-
-Hamburg-Altona,2517,1
-
-Hamminkeln,2536,6
-
-Hanau Hbf,2537,2
-
-Hanau Hbf,2537,2
-
-Hanau Hbf,2537,2
-
-Hannover–Vinnhorst,6424,4
-
-Hannover Bismarckstraße,2544,4
-
-Hannover Hbf,2545,1
-
-Hanweiler-Bad Rilchingen,2553,6
-
-Hanweiler-Bad Rilchingen,2553,6
-
-Happurg,8194,6
-
-Harblek,2554,7
-
 Harpe,2560,6
-
-Harsum,2565,6
-
-Hartershofen,2568,7
-
-Harthaus,2570,5
-
 Hasloch (Main),2578,5
-
-Haßloch (Pfalz),2585,4
-
-Hauenstein Mitte,8200,6
-
-Haunetal-Neukirchen,4408,6
-
 Haynsburg,2611,6
-
-HD-Weststadt/Südstadt,8050,5
-
-Hegermühle,2622,6
-
-Heggen,2623,6
-
-Hegne,2624,6
-
 Heidefeld,2627,3
-
-Heidelberger Platz,2632,4
-
-Heidenau,2636,4
-
-Heilbronn Hbf,2648,2
-
-Heilbronn Hbf,2648,2
-
-Heimfeld (S-Bahn),2662,4
-
-Heimstetten,2663,5
-
 Heinersdorf (b Lobenstein),2665,6
-
-Helpup,2678,7
-
-Hemmerde,2681,6
-
-Hemmersdorf (Saar),2682,7
-
 Hemsen (b Soltau),2685,5
-
-Herbertingen Ort,2696,7
-
-Herbertshofen,2697,6
-
-Herbolzheim (Breisgau),2699,5
-
-Herlasgrün,2714,6
-
-Herrenberg,2726,3
-
-Herrensee,2727,6
-
-Herzberg (Harz),2740,5
-
 Herzberg (Mark),2741,5
-
-Herzberg Schloß,2742,7
-
-Hetschburg,2750,7
-
-Hettenhausen,2751,7
-
-Hildburghausen,2762,6
-
-Hilden,2763,4
-
-Hilden Süd,2764,5
-
-Hirschhorn (Pfalz),2792,6
-
-Hittfeld,2795,6
-
-Hitzacker,2796,7
-
+Hinrichssegen,918,6
+IndexError,-1,-1
 Hochhausen (Tauber),2801,6
-
-Höchst-Hetschbach,2749,7
-
-Höchstädt (Donau),2808,6
-
-Hofen (b Aalen),2821,6
-
-Hoffenheim,2823,6
-
-Hoffnungsthal,2824,6
-
-Hohenebra Ort,2840,7
-
-Hoheneggelsen,2841,6
-
-Hohenstein-Ernstthal,2862,5
-
-Holm-Seppensen,2875,6
-
-Holzminden,2889,4
-
-Holzwickede,2890,5
-
 Hoppenwalde,2903,4
-
-Horb-Heiligenfeld,7712,7
-
 Hordorf,2908,3
-
-Horka Pbf,2910,6
-
-Hoyerswerda-Neustadt,2932,5
-
-Hoykenkamp,2933,6
-
-Hundsgrün,2948,7
-
-Hünfeld,2949,5
-
 Hüttenrode,2956,6
-
-Ibach,2960,7
-
-Ibbenbüren,2961,4
-
-Igensdorf,2967,6
-
 Igersheim,2968,6
-
-Ilsenburg,2980,6
-
-Immelborn,2981,6
-
-Ingelheim,2992,4
-
-Iserlohn,3006,6
-
-Iserlohnerheide,3008,7
-
 Jabel (Meckl),3019,6
-
-Jacobsdorf (Mark),3020,6
-
 Jacobsthal,3021,6
-
 Jägerhaus,3023,7
-
-Jeber-Bergfrieden,3040,6
-
-Jeeser,3041,6
-
-Jena Paradies,3043,3
-
 Jerxheim,3048,6
-
-Joachimsthal,3055,6
-
 Jodbad Sulzbrunn,3058,6
-
-Jungfernheide,3067,4
-
-Jungfernstieg (S-Bahn),3068,4
-
 Jütrichau,3073,7
-
-Kaiserslautern Hbf,3082,2
-
-Kaiserslautern Pfaffwerk,3083,7
-
-Kamenz (Sachs),3097,6
-
-Kämmereiforst,3098,6
-
 Kargow,3103,6
-
-Karlsruhe West,3108,6
-
-Karlsruhe West,3108,6
-
 Karow (Meckl),3115,4
-
-Kassebohm,5368,6
-
-Kattenes,3134,6
-
-Kehl,3148,4
-
-Kerkerbach,3161,6
-
-Kerkwitz,3162,6
-
 Kiekebusch (b Cottbus),3173,4
-
-Kiel Hbf,3174,2
-
-Kiel-Elmschenhagen,7252,6
-
-Kirchen,3186,5
-
-Kirchenlaibach,3187,4
-
-Kirchhorsten,3199,6
-
-Kirnsulzbach,3209,6
-
 Kläden (b Arendsee/Altm),3214,5
-
 Klebitz,3223,6
-
 Kleeth,3225,6
-
-Klein Auheim,3226,6
-
-Kleinfurra,3249,6
-
 Kleinheubach,3250,6
-
 Kleinwallstadt,3262,6
-
-Klieken,3266,6
-
 Klingenberg (Main),3270,6
-
 Klockow (b Waren/Müritz),3278,6
-
 Klosterfelde,3282,6
-
-Klosterlechfeld,3284,6
-
-Klostermansfeld,3285,6
-
-Klostermansfeld Randsiedlung,8021,7
-
-Kolkwitz Süd,3314,6
-
-Kölleda,3315,6
-
-Kollmarsreute,3316,6
-
-Köln Trimbornstrasse,3322,4
-
-Köln-Ehrenfeld,3330,3
-
-Köln-Ehrenfeld,3330,3
-
-Köln-Weiden West,8131,5
-
-Köln-Worringen,3339,5
-
-Köndringen,3342,6
-
 Konstanz (CH),7991,7
-
-Konz Mitte,1096,6
-
-Kottenheim,3386,6
-
 Krauschwitz (b Teuchern),3401,7
-
-Kredenbach,3402,7
-
-Kremmen,3409,6
-
-Kremmen,3409,6
-
-Kriftel,3423,4
-
-Krippen,3424,6
-
 Krottorf,3433,7
-
 Krüden,3434,7
-
-Kruft,3435,6
-
-Kulmbach,3458,4
-
-Kummerow (b Stralsund),3459,7
-
-Küstrin-Kietz,3478,6
-
 Kyritz,3483,6
-
-Laggenbeck,3493,5
-
-Landau (Pfalz) Süd,8283,7
-
-Landwehr (S-Bahn),3518,4
-
 Langenbuch,3532,5
-
-Langendorf,3533,7
-
-Langenorla Ost,3547,7
-
-Langhagen,3559,7
-
-Langlau,3560,7
-
-Langsdorf (Oberhess),3563,6
-
-Lauchringen,3575,6
-
-Lauchringen West,8048,6
-
 Laudenbach (b Kleinheubach),3577,4
-
 Laudenbach (Württ),3579,5
-
-Lauf West,3586,6
-
-Laufach,3587,6
-
-Lautenbach (Baden),3600,7
-
-Lauterbach (Hess) Nord,3602,6
-
 Lauterbach (Mole),3603,6
-
 Lauterbach (Mole),3603,6
-
 Lauterbach (Rügen),8148,7
-
-Legefeld,3612,7
-
-Legelshurst,3613,6
-
-Lehmen,3614,6
-
-Leipzig Bayerischer Bahnhof,8099,5
-
-Leipzig Coppiplatz,1070,6
-
 Leipzig Industriegelände West,2990,6
-
 Leipzig Marienbrunn,3952,6
-
-Leipzig Miltitz,4112,6
-
 Leipzig Ost,3633,6
-
 Leipzig-Großzschocher,3638,4
-
-Leipzig-Holzhausen,2885,7
-
-Leipzig-Knauthain,3641,6
-
-Leißling,3651,5
-
-Leitstade,3652,7
-
-Lenggries,3664,6
-
-Letschin,3672,6
-
-Lette (Kr Coesfeld),3673,6
-
-Letter,3674,5
-
 Leutersdorf,3685,7
-
-Leutkirch,3689,6
-
-Leverkusen Chempark,437,5
-
-Lichtenhagen,3701,4
-
-Lichtenrade,3703,5
-
-Lichtenstein (Sachs),3704,7
-
 Liebenau (Bz Kassel),3708,6
-
-Lindau Hbf,3727,3
-
+Liebenthal (Prign),3709,7
+IndexError,-1,-1
 Lindow (Mark),3738,6
-
-Littfeld,3750,6
-
-Löbau (Sachs),3751,4
-
-Lobenstein (Thür),3753,6
-
 Loburg,3755,6
-
-Lohmen,3765,6
-
-Löhnberg,3766,6
-
-Lorch (Württ),3781,5
-
-Lorchhausen,3782,6
-
 Lössau,3789,7
-
-Loßburg-Rodt,3790,7
-
 Löwenberg (Mark) Dorf,3797,6
-
-Lübeck Dänischburg IKEA,8300,5
-
-Lübeck Hbf,3807,2
-
-Lübeck-Travemünde Skandinavienkai,3813,6
-
-Lübeck-Travemünde Strand,3814,6
-
 Lübz,3820,6
-
-Lüdenscheid,3828,6
-
-Lüdersdorf (Meckl),3830,7
-
-Ludwigshafen (Rhein) Mitte,7385,3
-
-Ludwigshafen (Rhein) Mitte,7385,3
-
-Luisenthal (Saar),3850,6
-
 Luisenthal (Thür),3851,6
-
-Lutherstadt Wittenberg Altstadt,3864,6
-
-Lutherstadt Wittenberg Elbtor,3864,6
-
 Lutherstadt Wittenberg West,3865,6
-
-Lützschena,3877,6
-
-Magdeburg-Rothensee,3888,6
-
-Magdeburg-Rothensee,3888,6
-
-Magdeburg-Rothensee,3888,6
-
-Mainleus,3896,6
-
-Mainz-Gustavsburg,3903,4
-
 Malchow (Meckl),3912,6
-
-Malsch,3917,6
-
 Mannheim Rbf,3926,2
-
 Mannheim Rbf,3926,2
-
-Mannheim-Friedrichsfeld Süd,3928,4
-
-Mannheim-Handelshafen,3929,6
-
-Mannheim-Käfertal,3930,6
-
-Marbach West Villingen-Schwenningen,7147,7
-
-Marbeck-Heiden,3942,6
-
 Markelsheim,3958,6
-
-Marktbreit,3973,6
-
 Marktgölitz,3974,6
-
-Maschen,3996,5
-
-Massen,3997,6
-
-Maubach,4001,5
-
-Mechernich,4012,5
-
-Mechterstädt,4013,6
-
-Meckelfeld,4014,5
-
-Meeder,4021,7
-
-Meerane,4022,6
-
-Meißen,4036,5
-
-Meißen Altstadt,8277,5
-
-Melsdorf,7267,7
-
-Mengersgereuth-Hämmern Ost,4057,7
-
 Merseburg Elisabethhöhe,4069,6
-
 Mertendorf,4071,6
-
-Messinghausen,4079,6
-
 Meyenburg,4093,4
-
 Michaelstein,4094,4
-
-Michelstadt,4098,6
-
 Mierendorf,4101,4
-
 Milmersdorf,4108,6
-
-Miltach,4109,7
-
 Miltenberg,4110,7
-
 Miltitz-Roitzschen,4113,6
-
 Milzau,4116,7
-
 Minsleben,4121,3
-
 Mirow,4122,3
-
-Mistorf,4124,6
-
 Mittelndorf,4129,7
-
-Mixdorf,4142,7
-
 Möckern (b Magdeburg),4144,7
-
-Mölln (Lauenburg),4159,5
-
-Mosbach West,8052,5
-
-Müden (Mosel),4194,6
-
 Mühlental,4205,6
-
 Mühltroff,4213,6
-
 Muldenberg,4216,6
-
-Müncheberg (Mark),4228,6
-
-Münchehof (Harz),4229,6
-
-München Karlsplatz,4237,3
-
-München Leienfelsstraße,4238,5
-
-München-Englschalking,4250,5
-
-München-Fasanerie,4251,5
-
-München-Lochhausen,4260,5
-
-München-Mittersendling,4261,4
-
-München-Moosach,4262,4
-
-Münchsmünster,4273,6
-
-Münchweiler (Alsens),7963,6
-
-Münster-Amelsbüren,135,6
-
-Münster-Häger,4546,6
-
-Müssen,4289,6
-
-Nabburg,4290,6
-
-Nassau (Erzgeb),4301,7
-
-Nassau (Lahn),4302,5
-
-Nechlin,4314,7
-
-Neinstedt,4333,7
-
-Netzeband,4348,7
-
 Neu Büddenstedt,4350,6
-
-Neubrandenburg,4363,3
-
-Neubrücke (Nahe),4364,4
-
 Neuburxdorf,4368,6
-
-Neuenburg (Baden),7156,6
-
-Neuendettelsau,4378,7
-
-Neulußheim,4414,5
-
-Neumark (Sachs),4415,6
-
-Neupetershain,4431,6
-
-Neuss Hbf,4440,2
-
-Neuss Hbf,4440,2
-
-Neustadt (Orla),4449,6
-
-Neustadt (Sachs),4450,6
-
 Neuwerk,4463,6
-
-Neuwied,4464,3
-
-Nieder Ohmen,4475,6
-
-Nieder Olm,4476,6
-
-Niederfinow,4494,6
-
-Niedergörsdorf,4496,6
-
-Niedermittlau,4510,5
-
-Niedermohr,4511,6
-
-Niederschelden Nord Hp,4522,6
-
 Niederstetten,4530,7
-
 Niederstriegis,4532,6
-
-Niederwartha,4537,6
-
-Niederweimar,4538,6
-
-Nienhagen (b Halberstadt),4549,6
-
 Niklashausen,4556,6
-
-Nistertal-Bad Marienberg,1620,6
-
-Norddeich Mole,4570,4
-
-Norden,4571,5
-
-Nordendorf,4572,5
-
-Norheim,4584,6
-
-Norsingen,4585,6
-
 Nossen,4589,6
-
 Nossentin,4590,6
-
 Nothberg,4591,6
-
+Nottuln-Appelhülsen,167,4
+IndexError,-1,-1
 Nürnberg-Neusündersbühl,4605,6
-
-Nürnberg-Rothenburgerstraße,4596,5
-
-Nürnberg-Sandreuth,4609,6
-
-Oberaudorf,4621,5
-
-Oberbettingen-Hillesheim,4623,6
-
-Obergriesbach,4643,6
-
-Oberkirch-Koehlersiedlung,4655,7
-
 Oberklingensporn,4656,7
-
 Obernau,4666,6
-
 Obernburg-Elsenfeld,4668,6
-
-Oberschlottwitz,4689,7
-
-Oberweimar,4706,7
-
-Oberwerrn,4709,6
-
-Oderin,4726,6
-
-Oertzenhof,4736,7
-
-Oestrich-Winkel,4738,6
-
-Oeventrop,4739,6
-
-Offenburg-Kreisschulzentrum,8000,6
-
 Ohrdruf,4753,5
-
 Olbersleben,4761,5
-
-Ölbronn-Dürrn,7764,7
-
-Opladen,4770,4
-
-Oppenau,4771,6
-
-Osdorferstraße,7762,5
-
-Osnabrück Altstadt,4786,4
-
-Osterhofen (Oberbay),4794,7
-
-Osterholz-Scharmbeck,4795,4
-
-Ostseebad Graal-Müritz-Schwanenberg (Rostock Torfbrücke),4813,7
-
-Ottensoos,4827,6
-
 Otzing,4839,6
-
-Ovelgünne,4840,6
-
 Paditz,4849,6
-
-Paindorf,4851,6
-
-Pappenheim,4863,6
-
 Passow (Meckl),4875,6
-
-Paulinzella,4877,7
-
 Pausa,4878,7
-
-Peiting Ost,4891,6
-
 Petersdorf (Meckl),4903,7
-
-Petershagen Nord,4905,6
-
 Petriroda,4909,6
-
-Pforzheim Hbf,4922,2
-
 Pforzheim-Brötzingen,4923,2
-
 Pfraundorf (Inn),4924,7
-
-Pichelsberg,7732,5
-
-Pirna-Copitz,4944,6
-
 Plauen (Vogtl) unt Bf,4956,6
-
 Plauen (Vogtl) Zellwolle,4958,7
-
 Plauen (Vogtl)-Chrieschwitz,4959,7
-
-Plüderhausen,4969,4
-
-Plüschow,4970,7
-
 Pöllwitz,4985,6
-
-Ponitz,4990,6
-
-Pönitz (b Leipzig),4991,6
-
 Porz-Gremberghoven,5000,4
-
-Pösing,5005,6
-
-Possenhofen,5006,4
-
-Pößneck ob Bf,5007,6
-
-Potsdamer Platz,5016,2
-
-Praest,5017,6
-
-Pretzfeld,5029,7
-
-Pritzier,5043,6
-
-Pulheim,5056,5
-
 Putbus,5061,6
-
 Quittelsdorf,5075,6
-
-Radebeul Westbis 2013,5085,
-
-Radebeul-Kötzschenbrodaseit 2013,5085,6
-
 Raestrup-Everswinkel,5096,6
-
-Raguhn,5098,6
-
-Rahden,5099,6
-
-Rammingen (Bay),5653,7
-
-Ramsbach Birkhof,5112,7
-
-Rastow,5127,6
-
 Rathenow Nord,5132,4
-
-Raun,5146,7
-
-Raunheim,5147,4
-
-Reddelich,5163,7
-
-Rehau,5176,6
-
-Reichenbach (Vogtl) ob Bf,5187,4
-
 Reichertshofen (Oberbay),5193,6
-
 Reicholzheim,5195,6
-
-Reinfeld (Holst),5201,5
-
-Reinhardsbrunn-Friedrichroda,5202,6
-
 Reistenhausen-Fechenbach,5210,6
-
-Remscheid-Güldenwerth,5218,6
-
-Remscheid-Lennep,5219,5
-
 Renzendorf,5232,7
-
-Rethen (Leine),5234,6
-
 Reuden (Kr Zeitz),5236,5
-
-Reutlingen-Sondelfingen,5245,6
-
-Rhade,5246,6
-
 Rheinsberg (Mark),5255,5
-
-Rheinsheim,5256,6
-
-Richen (b Eppingen),5266,6
-
-Rickling,4815,6
-
-Rieschweiler,5277,7
-
-Rieseby,5278,6
-
 Ringenwalde (b Templin),5284,6
-
-Rinteln,5289,6
-
 Rippberg,5290,6
-
 Ritze,5294,6
-
 Röderau,5308,6
-
-Rodgau-Jügesheim,3066,5
-
-Rohrbach (Ilm),6874,5
-
-Rommerskirchen,5334,5
-
-Ronneburg (Thür),5336,6
-
-Ronnenberg (Han),5337,5
-
 Rosenwinkel,5349,2
-
 Roßleben,5359,4
-
 Roßwein,5364,6
-
-Rostock Evershagen,1741,4
-
 Rostock Hinrichsdorfer Straße,5366,2
-
 Rostock Seehafen Nord,5370,4
-
 Rostock-Dierkow,5372,5
-
-Rostock-Marienehe,5373,4
-
 Rostock-Seehafen Bw,7880,6
-
 Rostock-Toitenwinkel,5374,4
-
 Rot am See,5376,4
-
-Röthenbach (Oberpf),5388,7
-
-Röthenbach (Pegnitz),5389,6
-
-Röthenbach-Seespitz,5390,6
-
 Rottleben (Kyffh),5403,7
-
 Rottleberode,5404,7
-
 Rübeland,5407,5
-
-Rückersbacher Schlucht,5409,6
-
 Runding,5433,6
-
-Rutesheim,5443,5
-
-Ruthenbeck,5444,7
-
 Saarbrücken Messebahnhof,5452,2
-
-Saarmund,5459,6
-
-Saasen,5460,7
-
-Salzbergen,5476,4
-
-Salzgitter Bad,5478,6
-
-Sandebeck,5496,7
-
-Sanderbusch,5497,7
-
 Sarnow,5509,7
-
-Sassenroth,5511,7
-
-Sassnitz,5513,6
-
 Schafstädt,5531,7
-
-Schalkau,5536,7
-
 Scharzfeld,5549,7
-
-Schelklingen,5556,6
-
-Schemmerberg,5557,6
-
-Schkeuditz,5574,5
-
+Schichauweg,5563,5
+IndexError,-1,-1
 Schleiz,5585,6
-
 Schleiz West,5586,6
-
-Schliersee,5597,6
-
-Schmilka-Hirschmühle,5614,6
-
 Schneeberg (b Amorbach),5625,6
-
-Schoden-Ockfen,5631,6
-
-Schönebeck-Bad Salzelmen,5649,6
-
-Schöneck-Oberdorfelden,4633,6
-
 Schöningen,5668,4
-
-Schonungen,5672,6
-
-Schönwald (Oberfr),5673,7
-
-Schrobenhausen,5687,6
-
 Schrozberg,5689,6
-
-Schwäbisch Hall,5700,6
-
-Schwanheide,5714,6
-
-Schwedt (Oder) Mitte,7740,6
-
-Schwelm West,5750,6
-
-Schwenningen (Bay),5751,7
-
 Schwenzin,5753,6
-
-Schwerte (Ruhr),5763,4
-
-Schwetzingen,5766,4
-
-Seebergen,5781,6
-
-Seelze Pbf,5795,4
-
-Seerhausen,5796,6
-
 Seifhennersdorf,5808,5
-
-Seligenstadt (b Würzburg),5814,6
-
-Sersheim,5830,5
-
-Seubersdorf,5831,5
-
 Siebenbrunn,5837,7
-
-Siegen-Weidenau,5844,4
-
-Sierksdorf,5846,6
-
-Simmelsdorf-Hüttenbach,5860,6
-
-Sinsheim (Elsenz) Hbf,5870,4
-
-Sinsheim Museum,7178,6
-
 Solingen Hbf,5879,6
-
-Solingen-Grünewald,5778,5
-
-Solingen-Mitte,5414,5
-
 Söllingen (Braunschw),5887,6
-
-Sömmerda,5895,4
-
-Sondern,5896,6
-
 Sondershausen Süd,5899,6
-
 Sondershausen-Jecha,5900,6
-
-Sontheim-Brenz,5906,6
-
-Speyer Hbf,5923,4
-
-Speyer Nord-West,1607,6
-
-St Egidien,5936,5
-
-St Wendel,5948,4
-
 Stadtprozelten,5959,6
-
-Staffelstein,5963,5
-
-Stahringen,5964,6
-
-Steinau (Straße),5986,5
-
-Steinbach a Wald,5989,5
-
-Steinbach-Hallenberg,5990,6
-
-Steinhagen (Westf) Bielefelder Straße,3030,6
-
-Steinhausen-Neuburg,5997,7
-
-Steinheim (Westf),5999,6
-
-Stendal-Stadtsee,6013,5
-
-Stenn,6015,7
-
-Sterbfritz,6017,7
-
-Stockheim (Oberfr),6032,6
-
-Stockstadt (Main),6034,6
-
-Stockstadt (Rhein),6035,6
-
 Stolberg (Harz),6036,6
-
 Stößen,6046,6
-
-Stotternheim,6047,6
-
-Strausberg,6058,4
-
-Strausberg Nord,6059,6
-
-Stuttgart Universität,6076,4
-
-Stuttgart-Vaihingen,6087,3
-
-Sülstorf,6106,7
-
-Sulz (Neckar),6107,5
-
-Sülzbach,6108,6
-
 Sulzbach (Main),6110,6
-
-Sülzenbrücken,6120,6
-
-Tangerhütte,6138,6
-
 Tauberbischofsheim,6152,6
-
-Teltow Stadt,2871,5
-
 Templin-Ahrensdorf,6169,7
-
-Teterow,6175,6
-
 Thießen,6199,4
-
 Tiefensee,6214,6
-
-Tornesch,6230,4
-
-Tostedt,6231,4
-
 Traun,6238,5
-
 Trebbichau,6241,3
-
-Trebnitz (Mark),6247,6
-
-Trechtingshausen,6249,6
-
-Triefenried,6263,6
-
-Trier Hbf,6264,2
-
-Tübingen-Derendingen,6281,6
-
-Tutzing,6294,3
-
-Uebigau,6308,6
-
 Uftrungen,6313,5
-
-Uhyst,6319,6
-
 Umrathshausen Bahnhof,6327,7
-
-Unkel,6334,5
-
-Untergriesheim,6348,6
-
-Unterreichenbach,6362,6
-
-Ürzig DB,6378,6
-
-Varel (Oldb),6393,5
-
-Verden (Aller),6408,3
-
-Vernawahlshausen,6409,7
-
-Vilseck,6421,6
-
-Vilshofen (Niederbay),6423,4
-
 Vitzenburg,6427,6
-
 Vohren,6438,6
-
-Vöhrum,6440,6
-
-Wabern (Bz Kassel),6457,4
-
-Wahrenholz,6470,6
-
-Waldkirch,6487,5
-
-Waldmünchen,6491,7
-
 Walldürn,6505,6
-
 Wallenrod,6507,6
-
-Waltershausen-Schnepfenthal,6523,7
-
-Wandersleben,6526,6
-
-Wandsbek Ost,6529,4
-
 Warenshof,6540,6
-
-Warnemünde Werft,6546,5
-
-Warngau,6547,6
-
-Wasserthaleben,6563,7
-
-Wasserzell (b Eichstätt),6565,7
-
 Watenstedt,6567,6
-
-Weener,6576,7
-
-Weesenstein,6577,7
-
+Wehrden (Weser),7958,7
+IndexError,-1,-1
 Weidenthal,6601,6
-
-Weiding,6602,7
-
 Weikersheim,6605,6
-
 Weilbach (Unterfr),6611,7
-
-Weilburg,6612,5
-
 Weinböhla Hp,6620,6
-
 Weinböhla Hp,6620,6
-
-Weinheim (Bergstr),6622,4
-
-Weinsberg/Ellhofen Gewerbegebiet,7713,6
-
 Weißensee (Thür),6636,7
-
-Weißenthurm,6638,5
-
-Wellingsbüttel (S-Bahn),6657,5
-
-Wellmitz,6658,6
-
-Werbig,6677,6
-
-Werbig,6677,6
-
 Werder (b Neuruppin),6682,4
-
 Werftpfuhl,6685,6
-
-Wernberg,6688,5
-
-Werne (a d Lippe),6689,5
-
 Wertheim,6698,7
-
 Wertheim Glashütte,6699,7
-
-Wesel,6701,3
-
-Wesel-Feldmark,6702,6
-
 Wesenberg,6703,6
-
-Westerhausen,6713,6
-
-Westerland (Sylt),6714,3
-
 Wethau,6725,6
-
-Wetter (Ruhr),6728,5
-
 Wiederstein,7950,7
-
-Wiesbaden Hbf,6744,2
-
-Wiesloch-Walldorf,6759,3
-
-Wiesthal,6761,5
-
 Wildberg (b Neuruppin),6764,5
-
-Wilhelmshagen,6771,5
-
-Wilhelmshaven,6772,4
-
-Wiltingen (Saar),6788,6
-
-Winninghausen,6803,6
-
-Wismar,6818,5
-
-Wittgensdorf ob Bf,6830,6
-
-Wittighausen,6832,6
-
-Wolfegg,6848,7
-
-Wolfen (Kr Bitterfeld),6849,4
-
-Wolkramshausen,6870,5
-
 Woltersdorf (b Magdeburg),6878,6
-
 Worms Brücke,6886,6
-
-Wörsdorf,6890,6
-
-Wörth (Isar),6891,5
-
 Wörth (Main),6892,5
-
-Wülknitz,6906,6
-
-Wünschendorf (Elster),6908,6
-
-Wuppertal-Ronsdorf,6932,5
-
-Wuppertal-Sonnborn,6934,4
-
-Wurzbach (Thür),6944,6
-
 Wüstendittersdorf,6953,6
-
 Wusterhausen (Dosse),6956,7
-
 Wutike,6964,6
-
-Zachun,6970,7
-
 Zeddenick (Sachs-Anh),6978,6
-
-Zell (Wiesental),6988,6
-
-Zell-Kirchbrombach,6989,7
-
 Zeppenfeld,7951,7
-
 Zeppernick (b Magdeburg),7000,6
-
-Zerrenthin,7006,7
-
 Ziepel,7017,6
-
-Zimmern bei Seckach,7025,6
-
-Zörnigall,7046,7
-
 Zschachenmühle,7050,6
-
-Züssow,7063,5
-
-Züttlingen,7064,6
-
-Zwota-Zechenbach,7078,7
-
-Zwotental,7079,6
-
