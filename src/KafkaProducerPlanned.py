@@ -5,55 +5,70 @@ from kafka import KafkaProducer
 import requests 
 import Utils
 
-
-# iterate over eva numbers and send response to kafka in a thread
-def work_thread(producer, hourSlice, date, eva_numbers):
-    for eva in eva_numbers:
-        response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=Utils.TimeTableHeader1)
-    
-        producer.send(topic=topic, value=response.content).add_callback(send_on_success)
-
-    producer.flush()
-
-
-# load constants
-headers = Utils.TimeTableHeader1
-timeIntervalInSec = Utils.planTimeInterval
-topic = Utils.topicForPlannedTimetables
-bootstrap_servers=Utils.bootstrap_servers
-
-producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
-
+# callback of kafka if send successfull
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
 
-# get eva-number from csv
-csvfile = Utils.cityEvaRead()
-eva_numbers = []
-for line in csvfile:
-    lineArr = line.strip().split(",")
-    eva_numbers.append(lineArr[1])
 
-# Produce information end send to kafka
+# process_evas get an slice with eva_numbers, hourSlice and date for the request.
+# request api with given eva numbers and save data in kafka
+def process_evas(evas, hourSlice, date, security_token):
+    # create producer
+    producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
+
+    calls_in_minute = 0
+    # iterate over given eva numbers
+    for eva in evas:
+        # rest if the invocation limit is reached 
+        if calls_in_minute < Utils.timetableInvocationLimit:
+            calls_in_minute += 1
+        else:
+            time.sleep(60 - datetime.now().second)
+            calls_in_minute = 0
+        
+        # api request
+        header = TimeTableHeader1 = headers = {
+            'Accept': 'application/xml',
+            'Authorization': security_token,
+        }   
+        response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
+        # if api request was successfull send data to kafka
+        if response.status_code == 200:
+            producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
+    
+    # wait until every producer send his data
+    producer.flush()
+
+
+#=======================================
+# Main 
 while True:
-    ##startTime
+    # startTime
     start = datetime.now()
 
-    ##Work
+    # preparatory work: set hourslice and date
     hourSlice = start.hour
     # date in format: YYMMDD
     date = (str(start.year%1000) + 
         (('0'+str(start.month)) if (start.month<10) else (str(start.month))) + 
         (('0'+str(start.day)) if (start.day<10) else (str(start.day))))
 
-    # work in a thread
-    thread = threading.Thread(target=work_thread, args=(producer, hourSlice, date, eva_numbers))
-    thread.start()
+    ##Work
+    # load eva numbers
+    evas = Utils.get_eva_numbers()
+    # load tokens
+    tokens = Utils.tokenListTimeTablePlanned
+    # eva numbers that one token will process
+    evas_per_token = int(len(evas) / len(tokens)) + 1
+    # divide work on token
+    for x in range(len(tokens)):
+        thread = threading.Thread(target=process_evas, args=(evas[x*evas_per_token:(x+1)*evas_per_token], hourSlice, date, tokens[x]))
+        thread.start()
 
     # endTime
     end = datetime.now()
     # workTime
     workTimeInSec = (end-start).total_seconds()
-    # leep timeinterval-workTime
-    if workTimeInSec<timeIntervalInSec:
-        time.sleep(timeIntervalInSec-workTimeInSec)
+    # sleep timeinterval - workTime
+    if workTimeInSec < Utils.planTimeInterval:
+        time.sleep(Utils.planTimeInterval - workTimeInSec)
