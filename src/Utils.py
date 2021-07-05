@@ -2,6 +2,9 @@ from pathlib import Path
 
 # ==================================
 # API
+# Invocation limit for timetable api per minute
+timetableInvocationLimit = 20
+
 # autorization token for DPApi
 authToken1 = 'Bearer 13d747ec4d3615f93cca7dcf7f203389'
 authToken2 = 'Bearer 873be58d3db312b4e52a2102e5641c27'
@@ -50,6 +53,18 @@ def cityEvaRead():
     return open('../misc/table-1-result.csv', 'r')
 def cityEvaWrite():
     return open('../misc/table-1-result.csv', 'w')
+
+# exctract eva number out of the csv file
+def get_eva_numbers():
+    csvfile = cityEvaRead()
+    eva_numbers = []
+    for line in csvfile:
+        try:
+            lineArr = line.strip().split(",")
+            eva_numbers.append(lineArr[1])
+        except:
+            print("Error in: extract eva-number from csv")
+    return eva_numbers
 
 # =====================================
 # Elasticsearch
