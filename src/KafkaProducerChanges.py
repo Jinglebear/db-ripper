@@ -22,7 +22,10 @@ def send_on_success(record_metadata):
 
 
 # iterate over eva numbers and send response to kafka in a thread
-def work_thread(producer, eva_numbers):
+def work_thread(eva_numbers, security_token):
+
+    producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
+
     calls_in_minute=0
     for eva in eva_numbers:
         if calls_in_minute < Utils.timetableInvocationLimit:
@@ -30,10 +33,17 @@ def work_thread(producer, eva_numbers):
         else:
             time.sleep(60 - datetime.now().second)
             calls_in_minute = 0
-        response = requests.get(Utils.get_changes_url(eva), headers=)
-    
-        producer.send(topic=topic, value=response.content).add_callback(send_on_success)
         
+        header= TimeTableHeader1 = headers = {
+            'Accept': 'application/xml',
+            'Authorization': security_token,
+        } 
+        try:  
+            response = requests.get(Utils.get_changes_url(eva), headers=header)
+            if response.status_code==200:
+                producer.send(topic=topic, value=response.content).add_callback(send_on_success)
+        except Exception as e:
+            print(e)
     producer.flush()
 
 
@@ -58,7 +68,7 @@ while True:
     evas_per_token = int(len(evas) / len(tokens)) + 1
     # divide work on token
     for x in range(len(tokens)):
-        thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], hourSlice, date, tokens[x]))
+        thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], tokens[x]))
         thread.start()
 
     # endTime
