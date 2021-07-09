@@ -44,5 +44,7 @@ def extract_space_data(response):
 consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    extract_space_data(message)
+    messageVal = message.value
+    messageValAsString = messageVal.decode('utf-8')
+    extract_space_data(messageValAsString)
     
