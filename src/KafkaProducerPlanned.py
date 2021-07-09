@@ -3,8 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests 
-import Utils
-
+from Utility import Utils
 # callback of kafka if send successfull
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
