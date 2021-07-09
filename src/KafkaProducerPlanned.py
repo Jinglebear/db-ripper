@@ -31,11 +31,13 @@ def process_evas(evas, hourSlice, date, security_token):
             'Accept': 'application/xml',
             'Authorization': security_token,
         }   
-        response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
-        # if api request was successfull send data to kafka
-        if response.status_code == 200:
-            producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
-    
+        try:
+            response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
+            # if api request was successfull send data to kafka
+            if response.status_code == 200:
+                producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
+        except Exception as e:
+            print(e)
     # wait until every producer send his data
     producer.flush()
 
