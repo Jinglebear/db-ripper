@@ -80,6 +80,8 @@ def get_parking_IDs():
         try:
             lineArr = line.strip().split(",")
             parking_Ids.append(lineArr[0])
+        except:
+            print("Error in: extract parkingIDs from csv")
 
 # exctract eva number out of the csv file
 def get_eva_numbers():
