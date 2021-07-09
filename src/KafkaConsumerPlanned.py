@@ -35,6 +35,7 @@ def factorize_message(xmlString):
         trainInformation = {}
         trainInformation['station'] = trainStation
 
+        trainInformation['event'] = 'timetable'
         trainInformation['id'] = s.attrib['id']
         tripLabel = s.find('tl')
         trainInformation['trainType'] = tripLabel.attrib.get('f')
