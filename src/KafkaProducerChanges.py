@@ -2,7 +2,7 @@ from datetime import datetime
 import threading
 import time
 from kafka import KafkaProducer
-import requests 
+import requests
 from Utility import Utils
 
 # load constants
@@ -13,9 +13,6 @@ headers = {
 }
 timeIntervalInSec = Utils.changeTimeInterval
 topic = Utils.topicForChangedTimetabled
-bootstrap_servers=Utils.bootstrap_servers
-
-producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
 
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
