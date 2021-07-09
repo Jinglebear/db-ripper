@@ -53,7 +53,7 @@ def get_changes_url(eva_number):
 # topic names
 topicForPlannedTimetables = 'planned'
 topicForChangedTimetabled = 'changed'
-
+topicParkingTimetables = 'parking'
 # kafka
 bootstrap_servers = ['localhost:29092']
 
@@ -68,6 +68,18 @@ def cityEvaRead():
     return open('../misc/table-1-result.csv', 'r')
 def cityEvaWrite():
     return open('../misc/table-1-result.csv', 'w')
+def parkingIDRead():
+    return open('../misc/parking-allocations.csv', 'r')
+
+
+# extract parking IDs out of csv file
+def get_parking_IDs():
+    csvfile = parkingIDRead
+    parking_Ids = []
+    for line in csvfile:
+        try:
+            lineArr = line.strip().split(",")
+            parking_Ids.append(lineArr[0])
 
 # exctract eva number out of the csv file
 def get_eva_numbers():
