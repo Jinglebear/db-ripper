@@ -3,7 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests 
-import Utils
+from Utility import Utils
 
 
 # iterate over eva numbers and send response to kafka in a thread
