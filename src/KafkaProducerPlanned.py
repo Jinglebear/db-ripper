@@ -17,26 +17,27 @@ def process_evas(evas, hourSlice, date, security_token):
 
     calls_in_minute = 0
     # iterate over given eva numbers
-    for eva in evas:
-        # rest if the invocation limit is reached 
-        if calls_in_minute < Utils.timetableInvocationLimit:
-            calls_in_minute += 1
-        else:
-            time.sleep(60 - datetime.now().second)
-            calls_in_minute = 0
-        
-        # api request
-        header = TimeTableHeader1 = headers = {
-            'Accept': 'application/xml',
-            'Authorization': security_token,
-        }   
-        try:
-            response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
-            # if api request was successfull send data to kafka
-            if response.status_code == 200:
-                producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
-        except Exception as e:
-            print(e)
+    with requests.Session() as session:
+        for eva in evas:
+            # rest if the invocation limit is reached 
+            if calls_in_minute < Utils.timetableInvocationLimit:
+                calls_in_minute += 1
+            else:
+                time.sleep(60 - datetime.now().second)
+                calls_in_minute = 0
+            
+            # api request
+            header = TimeTableHeader1 = headers = {
+                'Accept': 'application/xml',
+                'Authorization': security_token,
+            }   
+            try:
+                response = session.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
+                # if api request was successfull send data to kafka
+                if response.status_code == 200:
+                    producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
+            except Exception as e:
+                print(e)
     # wait until every producer send his data
     producer.flush()
 
