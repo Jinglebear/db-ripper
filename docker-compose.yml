@@ -39,7 +39,7 @@ services:
     depends_on:
       - kafka1
     ports:
-      - "9000:9000"
+      - "9001:9001"
     environment:
       KAFKA_BROKERCONNECT: "kafka1:9092"
       JVM_OPTS: "-Xms32M -Xmx64M"
