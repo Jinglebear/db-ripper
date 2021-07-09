@@ -2,8 +2,7 @@ import threading
 from kafka import KafkaConsumer
 import xml.etree.ElementTree as ET
 import json
-import Utils
-
+from Utility import Utils
 # save incoming json on elasticsearch
 def save_on_elasticsearch(timetableJson, id):
     # connect to elasticsearch with default config
@@ -36,6 +35,7 @@ def factorize_message(xmlString):
         trainInformation = {}
         trainInformation['station'] = trainStation
 
+        trainInformation['event'] = 'timetable'
         trainInformation['id'] = s.attrib['id']
         tripLabel = s.find('tl')
         trainInformation['trainType'] = tripLabel.attrib.get('f')

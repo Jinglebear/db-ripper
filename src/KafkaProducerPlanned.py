@@ -3,8 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests 
-import Utils
-
+from Utility import Utils
 # callback of kafka if send successfull
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
@@ -31,11 +30,13 @@ def process_evas(evas, hourSlice, date, security_token):
             'Accept': 'application/xml',
             'Authorization': security_token,
         }   
-        response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
-        # if api request was successfull send data to kafka
-        if response.status_code == 200:
-            producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
-    
+        try:
+            response = requests.get(Utils.get_planned_url(eva,date,str(hourSlice)), headers=header)
+            # if api request was successfull send data to kafka
+            if response.status_code == 200:
+                producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
+        except Exception as e:
+            print(e)
     # wait until every producer send his data
     producer.flush()
 
