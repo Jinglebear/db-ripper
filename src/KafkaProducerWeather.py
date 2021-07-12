@@ -52,7 +52,7 @@ while True:
 
     ##Work
     # load cityNames
-    cityNames = Utils.get_cityName
+    cityNames = Utils.get_cityName()
     # load tokens
     tokens = Utils.tokenlistWaether
     # eva numbers that one token will process
