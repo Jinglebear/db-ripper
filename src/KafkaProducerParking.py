@@ -29,6 +29,8 @@ def process_parking_IDs(request_string, header):
 #Main
 
 while True:
+    #get some parking data
     process_parking_IDs(request_string=request_string,header=header)
-    time.sleep(60)
+    #get parking data every 30 minutes 
+    time.sleep(1800)
 

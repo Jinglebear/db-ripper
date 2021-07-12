@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 from Utility import Utils
 import json
 import requests
-
+from datetime import datetime, timedelta
 
 # save incoming json on elasticsearch
 def save_on_elasticsearch(parkingSpaceJson, id):
@@ -37,7 +37,13 @@ def extract_space_data(response):
             parkingInformation['spaceID'] = allocation_id
             parkingInformation['stationName'] = allocation_station_name
             parkingInformation['parkingCategory'] = allocation_category
-            print(parkingInformation)
+
+            #create timestamp for elastic search
+            currentDT = datetime.now() + timedelta(hours=1)
+            currentDT_formated = currentDT.strftime("%y%m%d%H%M")
+            #add formatted timestamp to parkingInformation JSON Object
+            parkingInformation['timestamp'] = currentDT_formated
+            #write JSON object on elasticsearch
             save_on_elasticsearch(json.dumps(parkingInformation,indent=3),id=allocation_id)
 
 consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
