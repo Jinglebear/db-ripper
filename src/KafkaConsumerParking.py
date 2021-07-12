@@ -38,13 +38,14 @@ def extract_space_data(response):
             parkingInformation['spaceID'] = allocation_id
             parkingInformation['stationName'] = allocation_station_name
             parkingInformation['parkingCategory'] = allocation_category
-            
+            print(parkingInformation)
             save_on_elasticsearch(json.dumps(parkingInformation,indent=3))
 
 consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    messageAsJson = message.value.json()
-    extract_space_data(messageAsJson)
+    messageValue = message.value
+    messageValueAsString = messageValue.decode('utf-8')
+    extract_space_data(json.dumps(messageValueAsString))
 
     
