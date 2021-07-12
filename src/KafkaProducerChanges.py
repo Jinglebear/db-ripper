@@ -60,7 +60,7 @@ while True:
     # load eva numbers
     evas = Utils.get_eva_numbers()
     # load tokens
-    tokens = Utils.tokenlistTimetable
+    tokens = Utils.tokenlistTimePark
     # eva numbers that one token will process
     evas_per_token = int(len(evas) / len(tokens)) + 1
     # divide work on token
