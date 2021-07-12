@@ -26,6 +26,7 @@ def extract_space_data(response):
     print(type(response))
     print(response)
     response = json.dumps(response)
+    print(type(response))
     allocations = response['allocations']
 
     for allocation in allocations:
