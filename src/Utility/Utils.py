@@ -103,9 +103,8 @@ from elasticsearch import Elasticsearch
 esIndex = 'timetable'
 
 # connect with elasticsearch returns an elasticsearch_object
+_es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 def connect_elasticsearch():
-    _es = None
-    _es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
     return _es
 
 # create Index on given elasticsearch_object, indexName can be given or use default
