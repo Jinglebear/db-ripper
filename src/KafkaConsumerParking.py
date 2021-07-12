@@ -38,7 +38,7 @@ def extract_space_data(response):
             parkingInformation['stationName'] = allocation_station_name
             parkingInformation['parkingCategory'] = allocation_category
             print(parkingInformation)
-            save_on_elasticsearch(json.dumps(parkingInformation,indent=3))
+            save_on_elasticsearch(json.dumps(parkingInformation,indent=3),id=allocation_id)
 
 consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
