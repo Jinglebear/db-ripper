@@ -32,7 +32,7 @@ def work_thread(eva_numbers, security_token):
             else:
                 time.sleep(60 - datetime.now().second)
                 calls_in_minute = 0
-            print(security_token)
+                
             header = {
                 'Accept': 'application/xml',
                 'Authorization': security_token,
