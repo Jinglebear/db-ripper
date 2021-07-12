@@ -23,10 +23,7 @@ def save_on_elasticsearch(parkingSpaceJson, id):
 
 # fetch space data, create json and save on elasticsearch
 def extract_space_data(response):
-    print(type(response))
-    print(response)
     response = json.dumps(response)
-    print(type(response))
     allocations = response['allocations']
 
     for allocation in allocations:
@@ -47,7 +44,7 @@ consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',boot
 
 for message in consumer:
     messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8')
-    extract_space_data(messageValueAsString)
+    messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
+    extract_space_data(json.loads(messageValueAsString))
 
     
