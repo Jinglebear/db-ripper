@@ -32,15 +32,11 @@ def work_thread(eva_numbers, security_token):
             else:
                 time.sleep(60 - datetime.now().second)
                 calls_in_minute = 0
-            
-            header= TimeTableHeader1 = headers = {
+            print(security_token)
+            header = {
                 'Accept': 'application/xml',
-                'Authorization': security_token[i],
+                'Authorization': security_token,
             } 
-            if i+1>35:
-                i=0
-            else:
-                i=i+1
             try:  
                 response = requests.get(Utils.get_changes_url(eva), headers=header)
                 if response.status_code==200:
