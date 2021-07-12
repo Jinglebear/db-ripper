@@ -27,7 +27,7 @@ def process_evas(evas, hourSlice, date, security_token):
                 calls_in_minute = 0
             
             # api request
-            header = TimeTableHeader1 = headers = {
+            header = {
                 'Accept': 'application/xml',
                 'Authorization': security_token,
             }   
