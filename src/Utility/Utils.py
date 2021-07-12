@@ -4,12 +4,17 @@ from pathlib import Path
 # API
 # Invocation limit for timetable api per minute
 timetableInvocationLimit = 20
+weatherInvocationLimit=60
 
 # autorization token for DPApi
 authToken1 = 'Bearer 13d747ec4d3615f93cca7dcf7f203389'
 authToken2 = 'Bearer 873be58d3db312b4e52a2102e5641c27'
 
 #authorization tokenlist for DPApi
+tokenlistWaether=["4d4e132b78899f18d0700d9786497acc","f5dc99de2bd1e62827186cd0a59c969e","83c4e7d593ba0a1557f8af1a0fe3e275",
+"f80a8c8cf872626d896aaa5b1393ad0f","db0a5045afe248adad429a54d3c32211","c8160151557119cd85dbfbbb61f8c80a",
+"2586b6e78610fa056868e8c2c903c7bc","6224561d28db0ed922417fb668145c0f","6224561d28db0ed922417fb668145c0f",
+"ffeead68165685a1fe21c5b283821e69"]
 tokenlistTimePark=["Bearer 66c1bf6e6d0ef593dd47424a4eec94bf", "Bearer 987e7819567c4d6ed7f583f28e0d70c2", "Bearer ee7c9ee9b982263124940af0cb510ae1",
 "Bearer ec4341dce84961c2894fcb1227acf636", "Bearer 7549bcaf06c9b267ef5352e0e3c2adc5", "Bearer 153816852a4e1b6ac36a6fb9f6e00cdd",
 "Bearer 3888f857751f4e7d6f40f3f656bba3a1", "Bearer 0824f9063615fe21fcf5738fb9199e02", "Bearer 787a1efb98cd211465927e7b709e33d4",
@@ -46,6 +51,8 @@ def get_planned_url(eva_number, date, hour_slice):
     return 'https://api.deutschebahn.com/timetables/v1/plan/'+eva_number+'/'+date+'/'+hour_slice
 def get_changes_url(eva_number):
     return 'https://api.deutschebahn.com/timetables/v1/rchg/'+eva_number
+def get_weather_url(cityName, apiKey):
+    return 'api.openweathermap.org/data/2.5/weather?q='+cityName+'&appid='+apiKey
 
 # =======================================
 # Kafka
@@ -53,12 +60,14 @@ def get_changes_url(eva_number):
 topicForPlannedTimetables = 'planned'
 topicForChangedTimetabled = 'changed'
 topicParkingTimetables = 'parking'
+topicWeather= 'weather'
 # kafka
 bootstrap_servers = ['localhost:29092']
 
 # timeInterval in seconds
 planTimeInterval = 10
 changeTimeInterval = 60
+weatherTimeInterval=60
 
 # =======================================
 # config files
@@ -93,7 +102,17 @@ def get_eva_numbers():
         except:
             print("Error in: extract eva-number from csv")
     return eva_numbers
-
+#extract cityName out of the csv file
+def get_cityName():
+    csvfile=cityEvaRead()
+    cityNames=[]
+    for line in csvfile:
+        try:
+            lineArr= line.strip().split(",")
+            cityNames.append(lineArr[0])
+        except:
+          print("Error in: extract cityNames from csv")   
+    return cityNames
 # =====================================
 # Elasticsearch
 from elasticsearch import Elasticsearch

@@ -6,39 +6,31 @@ import requests
 from Utility import Utils
 
 # load constants
-authTokenList=Utils.tokenlistTimetable
-headers = {
-    'Accept': 'application/xml',
-    'Authorization': authTokenList[0],
-}
-timeIntervalInSec = Utils.changeTimeInterval
-topic = Utils.topicForChangedTimetabled
+authTokenList=Utils.tokenlistWaether
+
+timeIntervalInSec = Utils.weatherTimeInterval
+topic = Utils.topicWeather
 
 def send_on_success(record_metadata):
     print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
 
 
 # iterate over eva numbers and send response to kafka in a thread
-def work_thread(eva_numbers, security_token):
+def work_thread(cityNames, security_token):
 
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
     
     
     calls_in_minute=0
     with requests.Session() as session:
-        for eva in eva_numbers:
-            if calls_in_minute < Utils.timetableInvocationLimit:
+        for city in cityNames:
+            if calls_in_minute < Utils.weatherInvocationLimit:
                 calls_in_minute += 1
             else:
                 time.sleep(60 - datetime.now().second)
-                calls_in_minute = 0
-
-            header = {
-                'Accept': 'application/xml',
-                'Authorization': security_token,
-            } 
+                calls_in_minute = 0 
             try:  
-                response = requests.get(Utils.get_changes_url(eva), headers=header)
+                response = requests.get(Utils.get_weather_url(city,security_token))
                 if response.status_code==200:
                     producer.send(topic=topic, value=response.content).add_callback(send_on_success)
             except Exception as e:
@@ -59,15 +51,15 @@ while True:
         (('0'+str(start.day)) if (start.day<10) else (str(start.day))))
 
     ##Work
-    # load eva numbers
-    evas = Utils.get_eva_numbers()
+    # load cityNames
+    cityNames = Utils.get_cityName
     # load tokens
-    tokens = Utils.tokenlistTimePark
+    tokens = Utils.tokenlistWaether
     # eva numbers that one token will process
-    evas_per_token = int(len(evas) / len(tokens)) + 1
+    city_per_token = int(len(cityNames) / len(tokens)) + 1
     # divide work on token
     for x in range(len(tokens)):
-        thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], tokens[x]))
+        thread = threading.Thread(target=work_thread, args=(cityNames[x*city_per_token:(x+1)*city_per_token], tokens[x]))
         thread.start()
 
     # endTime
