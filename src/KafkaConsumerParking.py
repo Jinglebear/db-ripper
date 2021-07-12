@@ -23,7 +23,8 @@ def save_on_elasticsearch(parkingSpaceJson, id):
 
 # fetch space data, create json and save on elasticsearch
 def extract_space_data(response):
-    
+    print(type(response))
+    print(response)
     response = json.dumps(response)
     allocations = response['allocations']
 
