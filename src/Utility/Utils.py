@@ -52,7 +52,7 @@ def get_planned_url(eva_number, date, hour_slice):
 def get_changes_url(eva_number):
     return 'https://api.deutschebahn.com/timetables/v1/rchg/'+eva_number
 def get_weather_url(cityName, apiKey):
-    return 'api.openweathermap.org/data/2.5/weather?q='+cityName+'&appid='+apiKey
+    return 'https://api.openweathermap.org/data/2.5/weather?q='+cityName+'&appid='+apiKey
 
 # =======================================
 # Kafka
