@@ -22,26 +22,32 @@ def send_on_success(record_metadata):
 def work_thread(eva_numbers, security_token):
 
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
-
+    
+    i=0
     calls_in_minute=0
-    for eva in eva_numbers:
-        if calls_in_minute < Utils.timetableInvocationLimit:
-            calls_in_minute += 1
-        else:
-            time.sleep(60 - datetime.now().second)
-            calls_in_minute = 0
-        
-        header= TimeTableHeader1 = headers = {
-            'Accept': 'application/xml',
-            'Authorization': security_token,
-        } 
-        try:  
-            response = requests.get(Utils.get_changes_url(eva), headers=header)
-            if response.status_code==200:
-                producer.send(topic=topic, value=response.content).add_callback(send_on_success)
-        except Exception as e:
-            print(e)
-    producer.flush()
+    with requests.Session() as session:
+        for eva in eva_numbers:
+            if calls_in_minute < Utils.timetableInvocationLimit:
+                calls_in_minute += 1
+            else:
+                time.sleep(60 - datetime.now().second)
+                calls_in_minute = 0
+            
+            header= TimeTableHeader1 = headers = {
+                'Accept': 'application/xml',
+                'Authorization': security_token[i],
+            } 
+            if i+1>35:
+                i=0
+            else:
+                i=i+1
+            try:  
+                response = requests.get(Utils.get_changes_url(eva), headers=header)
+                if response.status_code==200:
+                    producer.send(topic=topic, value=response.content).add_callback(send_on_success)
+            except Exception as e:
+                print(e)
+        producer.flush()
 
 
 # Produce information end send to kafka
