@@ -1,4 +1,3 @@
-from os import EX_CANTCREAT
 import threading
 from kafka import KafkaConsumer
 import xml.etree.ElementTree as ET
@@ -16,7 +15,8 @@ def save_on_elasticsearch(timetableJson, id):
 
     # store json on elasticsearch
     try:
-        _es.index(Utils.esIndex, body=timetableJson, id=id)
+        response = _es.index(Utils.esIndex, body=timetableJson, id=id)
+        print(response)
     except Exception as e:
         print('Error in indexing data')
         print(str(e))

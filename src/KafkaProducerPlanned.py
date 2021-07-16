@@ -36,6 +36,8 @@ def process_evas(evas, hourSlice, date, security_token):
                 # if api request was successfull send data to kafka
                 if response.status_code == 200:
                     producer.send(topic=Utils.topicForPlannedTimetables, value=response.content).add_callback(send_on_success)
+                else:
+                    print("Error in KafkaProducerPlanned: Not able to connect,",response.status_code, response.text)
             except Exception as e:
                 print(e)
     # wait until every producer send his data
@@ -45,6 +47,7 @@ def process_evas(evas, hourSlice, date, security_token):
 #=======================================
 # Main 
 def KafkaProducerPlannedMain():
+    print("start KafkaProducerPlanned")
     while True:
         # startTime
         start = datetime.now()
