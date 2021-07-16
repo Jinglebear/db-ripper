@@ -59,10 +59,13 @@ def factorize_message(xmlString):
     except:
         print(xmlString)
 
-consumer = KafkaConsumer(Utils.topicForPlannedTimetables, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
+def KafkaConsumerPlannedMain():
+    consumer = KafkaConsumer(Utils.topicForPlannedTimetables, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
 
-for message in consumer:
-    messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8')
-    thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
-    thread.start()
+    for message in consumer:
+        messageValue = message.value
+        messageValueAsString = messageValue.decode('utf-8')
+        thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
+        thread.start()
+
+KafkaConsumerPlannedMain()
