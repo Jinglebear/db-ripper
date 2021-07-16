@@ -26,8 +26,8 @@ def get_from_elasticsearch(id):
             return object['hits']['hits'][0]['_source']
     return None
 
-def save_on_elasticsearch(dictionary):
-    objectJson = json.dumps(dictionary)
+def save_on_elasticsearch(dictionary, dicId):
+    
     
     # get connection to elasticsearch
     _es = Utils.connect_elasticsearch()
@@ -37,7 +37,12 @@ def save_on_elasticsearch(dictionary):
     # index is created by get_from_elasticsearch
 
     # update entry
-    response = _es.update(index=Utils.esIndex, id=dictionary.get('id'), doc_type="_doc", body=objectJson)
+    source_to_update = {
+        "doc": dictionary
+    }
+    # print(source_to_update)
+    objectJson = json.dumps(source_to_update)
+    response = _es.update(index=Utils.esIndex, id=dicId, doc_type="_doc", body=objectJson)
     print(response)
 
 
@@ -98,10 +103,11 @@ def factorize_message(xmlString):
                     plan['reasonForDelay'] == []
                 if code not in plan['reasonForDelay']:
                     plan['reasonForDelay'].append(code)
-        print(plan)
+        save_on_elasticsearch(plan, sid)
             
 
 def KafkaConsumerChangesMain():
+    print("start KafkaConsumerChanges")
     consumer = KafkaConsumer(Utils.topicForChangedTimetabled, group_id='db_ripper', bootstrap_servers=Utils.bootstrap_servers)
 
     for message in consumer:
