@@ -65,7 +65,7 @@ topicWeather= 'weather'
 bootstrap_servers = ['localhost:29092']
 
 # timeInterval in seconds
-planTimeInterval = 10
+planTimeInterval = 3600
 changeTimeInterval = 60
 weatherTimeInterval=60
 
@@ -73,7 +73,7 @@ weatherTimeInterval=60
 # config files
 # csv file
 def cityEvaRead():
-    return open('../misc/table-1-result.csv', 'r')
+    return open('../misc/table-1-sorted(category4).csv', 'r')
 def cityEvaWrite():
     return open('../misc/table-1-result.csv', 'w')
 def parkingIDRead():
