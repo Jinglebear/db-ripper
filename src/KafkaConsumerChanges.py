@@ -84,7 +84,6 @@ def factorize_message(xmlString):
         # append message code
         for message in s.findall('m'):
             t = message.get('t')
-            print(message, t)
             if t == None:
                 continue
 
