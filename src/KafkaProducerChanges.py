@@ -75,5 +75,5 @@ while True:
     # workTime
     workTimeInSec = (end-start).total_seconds()
     # sleep timeinterval - workTime
-    if workTimeInSec < Utils.planTimeInterval:
-        time.sleep(Utils.planTimeInterval - workTimeInSec)
+    if workTimeInSec < Utils.changeTimeInterval:
+        time.sleep(Utils.changeTimeInterval - workTimeInSec)
