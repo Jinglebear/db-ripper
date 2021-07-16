@@ -3,6 +3,7 @@ from Utility import Utils
 import xml.etree.ElementTree as ET
 import time
 import json
+import threading
 
 def get_from_elasticsearch(id):
     # connect to elasticsearch
@@ -16,13 +17,30 @@ def get_from_elasticsearch(id):
     # get from elasticsearch with timeout
     count = 0
     while(count < 15):
-        object = _es.search(index=Utils.esIndex, id=id)
-        if object == None:
+        query = {"query":{"match":{"id":{"query":id,"operator": "and"}}}}
+        object = _es.search(index=Utils.esIndex, body=query)
+        if object == None or len(object['hits']['hits'])!=1:
             time.sleep(1)
             count += 1
         else:
-            return object
+            return object['hits']['hits'][0]['_source']
     return None
+
+def save_on_elasticsearch(dictionary):
+    objectJson = json.dumps(dictionary)
+    
+    # get connection to elasticsearch
+    _es = Utils.connect_elasticsearch()
+    if _es == None:
+        return None
+    
+    # index is created by get_from_elasticsearch
+
+    # update entry
+    response = _es.update(index=Utils.esIndex, id=dictionary.get('id'), doc_type="_doc", body=objectJson)
+    print(response)
+
+
 
 def factorize_message(xmlString):
     root = ET.fromstring(xmlString)
@@ -30,40 +48,66 @@ def factorize_message(xmlString):
     for s in root: 
         # get planned from elasticsearch
         sid = s.attrib['id']
-        planJson = get_from_elasticsearch(sid)
+        plan = get_from_elasticsearch(sid)
         if plan == None:
             continue
-
-        plan = json.load(planJson)
 
         # extract Information and extend planned data
         # arTimeDiff
         arrive = s.find('ar')
         if arrive:
             arriveTime = arrive.attrib['ct']
-            timeDiff = int(arriveTime) - plan['arTime']
-            if timeDiff < 0:
-                timeDiff = timeDiff * -1
-            plan['arTimeDiff'] = timeDiff
+            try:
+                timeDiff = int(arriveTime) - int(plan['arTime'])
+                if timeDiff < 0:
+                    timeDiff = timeDiff * -1
+                plan['arTimeDiff'] = timeDiff
+            except Exception as e:
+                print(arriveTime, e)
 
         # dpTimeDiff
         departure = s.find('ar')
         if departure:
             departureTime = departure.attrib['ct']
-            timeDiff = int(departureTime) - plan['dpTime']
-            if timeDiff < 0:
-                timeDiff = timeDiff * -1
-            plan['dpTimeDiff'] = timeDiff
+            try:
+                timeDiff = int(departureTime) - int(plan['dpTime'])
+                if timeDiff < 0:
+                    timeDiff = timeDiff * -1
+                plan['dpTimeDiff'] = timeDiff
+            except Exception as e:
+                print(departureTime, e)    
+        # append message code
+        for message in s.findall('m'):
+            t = message.get('t')
+            print(message, t)
+            if t == None:
+                continue
 
-        # qualityDevation
-        for message in s.findAll('m'):
-            m=1
+            if t == "q":
+                # qualityDevation
+                code = message.get('c')
+                if plan['qualityDevation'] == None:
+                    plan['qualityDevation'] == []
+                if code not in plan['qualityDevation']:
+                    plan['qualityDevation'].append(code)
 
-        # reason for delay
+            elif t == "d":
+                # reason for delay
+                code = message.get('c')
+                if plan['reasonForDelay'] == None:
+                    plan['reasonForDelay'] == []
+                if code not in plan['reasonForDelay']:
+                    plan['reasonForDelay'].append(code)
+        print(plan)
+            
 
-consumer = KafkaConsumer(Utils.topicForChangedTimetabled, group_id='db_ripper', bootstrap_servers=Utils.bootstrap_servers)
+def KafkaConsumerChangesMain():
+    consumer = KafkaConsumer(Utils.topicForChangedTimetabled, group_id='db_ripper', bootstrap_servers=Utils.bootstrap_servers)
 
-for message in consumer:
-    messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8')
-    
+    for message in consumer:
+        messageValue = message.value
+        messageValueAsString = messageValue.decode('utf-8')
+        thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
+        thread.start()
+
+KafkaConsumerChangesMain()
