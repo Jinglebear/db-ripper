@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 
 #logging
-print("Started\n")
+#print("Started\n")
 
 # save incoming json on elasticsearch
 def save_on_elasticsearch(parkingSpaceJson, id):

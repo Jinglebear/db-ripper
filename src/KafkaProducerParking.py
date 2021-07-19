@@ -27,11 +27,11 @@ def process_parking_IDs(request_string, header):
 
 #============================
 #Main
-
-while True:
+# no loop --> cron job
+#while True: 
     #get some parking data
     process_parking_IDs(request_string=request_string,header=header)
     #get parking data every 30 minutes 
     #adjust this
-    time.sleep(1800)
+#    time.sleep(1800)
 
