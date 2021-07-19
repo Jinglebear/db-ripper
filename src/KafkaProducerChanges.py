@@ -3,7 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests
-from Utility import Utils
+from utility import Utils
 
 # load constants
 authTokenList=Utils.tokenlistTimetable

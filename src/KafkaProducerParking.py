@@ -1,7 +1,7 @@
 from datetime import datetime
 import time
 from kafka import KafkaProducer, producer
-from Utility import Utils
+from utility import Utils
 import requests
 #constants
 request_string = "https://api.deutschebahn.com/bahnpark/v1/spaces/occupancies" # /spaces/{id}/occupancies

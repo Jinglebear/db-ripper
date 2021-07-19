@@ -1,5 +1,5 @@
 from kafka import KafkaConsumer
-from Utility import Utils
+from utility import Utils
 import xml.etree.ElementTree as ET
 import time
 import json
