@@ -25,7 +25,7 @@ def readStation(filename):
 
 
 # array with the important station data
-stations = readStation("/home/nils/db-ripper/misc/Mappe1.csv")
+stations = readStation("..\\..\\misc\\Mappe1.csv")
 
 
 def getEvaNum(station, base_request_string, header, resultArr, failArr):
@@ -88,11 +88,11 @@ for i in range(8):
     counterArr.append(0)
 
 computeEvaNums(stations, base_request_string, headers_arr, resultArr, failArr,counterArr=counterArr)
-with open("/home/nils/db-ripper/misc/table-2-result.csv", "w", newline='', encoding='utf-8') as resultfile:
+with open("..\\..\\misc\\table-2-result.csv", "w", newline='', encoding='utf-8') as resultfile:
     writer = csv.writer(resultfile)
     for result in resultArr:
         writer.writerow(result)
-with open("/home/nils/db-ripper/misc/table-2-fail.csv", "w", newline='', encoding='utf-8') as failfile:
+with open("..\\..\\misc\\table-2-fail.csv", "w", newline='', encoding='utf-8') as failfile:
     writer = csv.writer(failfile)
     for fail in failArr:
         writer.writerow(fail)
