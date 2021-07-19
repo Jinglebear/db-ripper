@@ -1,0 +1,100 @@
+Traceback (most recent call last):
+  File "/home/nils/db-ripper/src/KafkaConsumerParking.py", line 56, in <module>
+    for message in consumer:
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1193, in __next__
+    return self.next_v2()
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1201, in next_v2
+    return next(self._iterator)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1116, in _message_generator_v2
+    record_map = self.poll(timeout_ms=timeout_ms, update_offsets=False)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 655, in poll
+    records = self._poll_once(remaining, max_records, update_offsets=update_offsets)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 702, in _poll_once
+    self._client.poll(timeout_ms=timeout_ms)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 602, in poll
+    self._poll(timeout / 1000)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 634, in _poll
+    ready = self._selector.select(timeout)
+  File "/usr/lib/python3.8/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/nils/db-ripper/src/KafkaConsumerParking.py", line 56, in <module>
+    for message in consumer:
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1193, in __next__
+    return self.next_v2()
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1201, in next_v2
+    return next(self._iterator)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1116, in _message_generator_v2
+    record_map = self.poll(timeout_ms=timeout_ms, update_offsets=False)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 655, in poll
+    records = self._poll_once(remaining, max_records, update_offsets=update_offsets)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 702, in _poll_once
+    self._client.poll(timeout_ms=timeout_ms)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 602, in poll
+    self._poll(timeout / 1000)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 634, in _poll
+    ready = self._selector.select(timeout)
+  File "/usr/lib/python3.8/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/nils/db-ripper/src/KafkaConsumerParking.py", line 56, in <module>
+    for message in consumer:
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1193, in __next__
+    return self.next_v2()
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1201, in next_v2
+    return next(self._iterator)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1116, in _message_generator_v2
+    record_map = self.poll(timeout_ms=timeout_ms, update_offsets=False)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 655, in poll
+    records = self._poll_once(remaining, max_records, update_offsets=update_offsets)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 702, in _poll_once
+    self._client.poll(timeout_ms=timeout_ms)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 602, in poll
+    self._poll(timeout / 1000)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 634, in _poll
+    ready = self._selector.select(timeout)
+  File "/usr/lib/python3.8/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/nils/db-ripper/src/KafkaConsumerParking.py", line 56, in <module>
+    for message in consumer:
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1193, in __next__
+    return self.next_v2()
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1201, in next_v2
+    return next(self._iterator)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1116, in _message_generator_v2
+    record_map = self.poll(timeout_ms=timeout_ms, update_offsets=False)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 655, in poll
+    records = self._poll_once(remaining, max_records, update_offsets=update_offsets)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 702, in _poll_once
+    self._client.poll(timeout_ms=timeout_ms)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 602, in poll
+    self._poll(timeout / 1000)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 634, in _poll
+    ready = self._selector.select(timeout)
+  File "/usr/lib/python3.8/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/nils/db-ripper/src/KafkaConsumerParking.py", line 56, in <module>
+    for message in consumer:
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1193, in __next__
+    return self.next_v2()
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1201, in next_v2
+    return next(self._iterator)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 1116, in _message_generator_v2
+    record_map = self.poll(timeout_ms=timeout_ms, update_offsets=False)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 655, in poll
+    records = self._poll_once(remaining, max_records, update_offsets=update_offsets)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/consumer/group.py", line 702, in _poll_once
+    self._client.poll(timeout_ms=timeout_ms)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 602, in poll
+    self._poll(timeout / 1000)
+  File "/home/nils/.local/lib/python3.8/site-packages/kafka/client_async.py", line 634, in _poll
+    ready = self._selector.select(timeout)
+  File "/usr/lib/python3.8/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
