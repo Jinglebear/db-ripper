@@ -32,5 +32,6 @@ while True:
     #get some parking data
     process_parking_IDs(request_string=request_string,header=header)
     #get parking data every 30 minutes 
+    #adjust this
     time.sleep(1800)
 
