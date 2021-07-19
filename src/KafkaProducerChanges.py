@@ -3,7 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests
-from Utility import Utils
+from utility import Utils
 
 # load constants
 authTokenList=Utils.tokenlistTimetable
@@ -47,33 +47,21 @@ def work_thread(eva_numbers, security_token):
 
 
 # Produce information end send to kafka
-while True:
-    # startTime
-    start = datetime.now()
+# preparatory work: set hourslice and date
+hourSlice = start.hour
+# date in format: YYMMDD
+date = (str(start.year%1000) + 
+    (('0'+str(start.month)) if (start.month<10) else (str(start.month))) + 
+    (('0'+str(start.day)) if (start.day<10) else (str(start.day))))
 
-    # preparatory work: set hourslice and date
-    hourSlice = start.hour
-    # date in format: YYMMDD
-    date = (str(start.year%1000) + 
-        (('0'+str(start.month)) if (start.month<10) else (str(start.month))) + 
-        (('0'+str(start.day)) if (start.day<10) else (str(start.day))))
-
-    ##Work
-    # load eva numbers
-    evas = Utils.get_eva_numbers()
-    # load tokens
-    tokens = Utils.tokenlistTimePark
-    # eva numbers that one token will process
-    evas_per_token = int(len(evas) / len(tokens)) + 1
-    # divide work on token
-    for x in range(len(tokens)):
-        thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], tokens[x]))
-        thread.start()
-
-    # endTime
-    end = datetime.now()
-    # workTime
-    workTimeInSec = (end-start).total_seconds()
-    # sleep timeinterval - workTime
-    if workTimeInSec < Utils.changeTimeInterval:
-        time.sleep(Utils.changeTimeInterval - workTimeInSec)
+##Work
+# load eva numbers
+evas = Utils.get_eva_numbers()
+# load tokens
+tokens = Utils.tokenlistTimePark
+# eva numbers that one token will process
+evas_per_token = int(len(evas) / len(tokens)) + 1
+# divide work on token
+for x in range(len(tokens)):
+    thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], tokens[x]))
+    thread.start()
