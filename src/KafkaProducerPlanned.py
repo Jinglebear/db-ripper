@@ -47,6 +47,7 @@ def process_evas(evas, hourSlice, date, security_token):
 #=======================================
 # Main
 # preparatory work: set hourslice and date
+start = datetime.now()
 hourSlice = start.hour
 # date in format: YYMMDD
 date = (str(start.year%1000) + 
