@@ -2,4 +2,4 @@
 #Log message
 printf 'Starting KafkaConsumerParking...\n'
 
-python3 /home/nils/db-ripper/src/KafkaConsumerParking.py >> /home/nils/db-ripper/misc/logs/KafkaConsumerParking.log 2>>/home/nils/db-ripper/misc/err_logs/ErrLogConsumerParking.log 
+python3 /home/"$USER"/db-ripper/src/KafkaConsumerParking.py >> /home/"$USER"/db-ripper/misc/logs/KafkaConsumerParking.log 2>>/home/"$USER"/db-ripper/misc/err_logs/ErrLogConsumerParking.log 
