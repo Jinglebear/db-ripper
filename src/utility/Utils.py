@@ -69,7 +69,7 @@ bootstrap_servers = ['localhost:29092']
 # timeInterval in seconds
 planTimeInterval = 3600
 changeTimeInterval = 60
-weatherTimeInterval=60
+weatherTimeInterval=3600
 
 # =======================================
 # config files
