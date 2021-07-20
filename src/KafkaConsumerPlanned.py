@@ -1,13 +1,21 @@
-import threading
-from kafka import KafkaConsumer
-import xml.etree.ElementTree as ET
-import json
-from utility import Utils
+import sys
+from datetime import datetime
+
+try:
+    import threading
+    from kafka import KafkaConsumer
+    import xml.etree.ElementTree as ET
+    import json
+    from utility import Utils
+except Exception as e:
+    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Exception by import", e, file=sys.stderr)
+
 # save incoming json on elasticsearch
 def save_on_elasticsearch(timetableJson, id):
     # connect to elasticsearch with default config
     _es = Utils.connect_elasticsearch()
     if _es == None:
+        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Can't connect to elasticsearch", file=sys.stderr)
         return
 
     # create index if not exists with defaultname
@@ -16,10 +24,9 @@ def save_on_elasticsearch(timetableJson, id):
     # store json on elasticsearch
     try:
         response = _es.index(Utils.esIndex, body=timetableJson, id=id)
-        print(response)
     except Exception as e:
-        print('Error in indexing data')
-        print(str(e))
+        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error while indexing data.", e, file=sys.stderr)
+        
 
 
 # factorize incoming message in a thread
@@ -27,12 +34,17 @@ def save_on_elasticsearch(timetableJson, id):
 def factorize_message(xmlString):
     root = ET.fromstring(xmlString)
 
-    # extract trainStation out of xml
     try:
+        # extract trainStation out of xml
         trainStation = root.attrib['station']
+    except:
+        # timetable is empty
+        # possible when no train in this hourslice is planned
+        error=""
 
-        # child of timetable are event with tag "s"
-        for s in root:
+    # child of timetable are event with tag "s"
+    for s in root:
+        try:
             # save values in trainInformation
             trainInformation = {}
             trainInformation['station'] = trainStation
@@ -56,16 +68,15 @@ def factorize_message(xmlString):
             # transform dictinary to json and save on elasticsearch
             json_object = json.dumps(trainInformation)
             save_on_elasticsearch(json_object, trainInformation['id'])
-    except:
-        print(xmlString)
+        except Exception as e:
+            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error in an event", s.getchildren(), file=sys.stderr)
 
-def KafkaConsumerPlannedMain():
-    consumer = KafkaConsumer(Utils.topicForPlannedTimetables, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
+## Work
+print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "KafkaConsumerPlanned: start consumer")
+consumer = KafkaConsumer(Utils.topicForPlannedTimetables, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
 
-    for message in consumer:
-        messageValue = message.value
-        messageValueAsString = messageValue.decode('utf-8')
-        thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
-        thread.start()
-
-KafkaConsumerPlannedMain()
+for message in consumer:
+    messageValue = message.value
+    messageValueAsString = messageValue.decode('utf-8')
+    thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
+    thread.start()
