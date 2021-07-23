@@ -1,17 +1,20 @@
-from kafka import KafkaConsumer
-from utility import Utils
-import json
-import requests
+import sys
 from datetime import datetime, timedelta
+try:
+    from kafka import KafkaConsumer
+    from utility import Utils
+    import json
+    import requests
+except Exception as e:
+    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Exception by import", e, file=sys.stderr)
 
-#logging
-#print("Started\n")
 
 # save incoming json on elasticsearch
 def save_on_elasticsearch(parkingSpaceJson, id):
     # connect to elasticsearch with default config
     _es = Utils.connect_elasticsearch()
     if (_es == None):
+        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Can't connect to elasticsearch", file=sys.stderr)
         return
     
     # create index if not exists with defaultname
@@ -20,8 +23,7 @@ def save_on_elasticsearch(parkingSpaceJson, id):
     try:
         _es.index(Utils.esIndex, body=parkingSpaceJson)
     except Exception as e:
-        print('Error in indexing data')
-        print(str(e))
+        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Error while indexing data.", e, file=sys.stderr)
 
 
 # fetch space data, create json and save on elasticsearch
