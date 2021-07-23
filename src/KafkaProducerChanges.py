@@ -6,7 +6,7 @@ try:
     import time
     from kafka import KafkaProducer
     import requests 
-    from utility import Utils
+    from Utility import Utils
 except Exception as e:
     print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: Exception by import", e, file=sys.stderr)
 

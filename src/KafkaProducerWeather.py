@@ -3,7 +3,7 @@ import threading
 import time
 from kafka import KafkaProducer
 import requests
-from utility import Utils
+from Utility import Utils
 
 # load constants
 authTokenList=Utils.tokenlistWaether
@@ -41,7 +41,7 @@ def work_thread(cityNames, security_token):
 # Produce information end send to kafka
     ##Work
     # load cityNames
-    cityNames = Utils.get_cityName()
+    cityNames = Utils.get_cityName_Weather()
     # load tokens
     tokens = Utils.tokenlistWaether
     # eva numbers that one token will process

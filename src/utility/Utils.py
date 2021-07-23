@@ -80,6 +80,8 @@ def cityEvaWrite():
     return open('../../misc/table-1-result.csv', 'w')
 def parkingIDRead():
     return open('../../misc/parking-allocations.csv', 'r')
+def cityNameRead():
+    return open('../../misc/table-2-sorted(category4).csv','r')
 
 
 # extract parking IDs out of csv file
@@ -115,6 +117,18 @@ def get_cityName():
         except:
           print("Error in: extract cityNames from csv")   
     return cityNames
+#extract cityName out of the csv file for WeatherApi
+def get_cityName_Weather():
+    csvfile=cityNameRead()
+    cityNames=[]
+    for line in csvfile:
+        try:
+            lineArr=line.strip().split(",")
+            if lineArr[3] not in cityNames:
+                cityNames.append(lineArr[3])
+        except:
+            print("Error in: extract cityNames for Weather from csv")
+
 # =====================================
 # Elasticsearch
 from elasticsearch import Elasticsearch
