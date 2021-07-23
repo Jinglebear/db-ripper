@@ -100,6 +100,7 @@ def cityEvaWrite():
 
 def parkingIDRead():
     return open('../../misc/parking-allocations.csv', 'r')
+
 def cityNameRead():
     return open('../../misc/table-2-sorted(category4).csv','r')
 
@@ -141,6 +142,7 @@ def get_cityName():
         except:
             print("Error in: extract cityNames from csv")
     return cityNames
+    
 #extract cityName out of the csv file for WeatherApi
 def get_cityName_Weather():
     csvfile=cityNameRead()
