@@ -48,6 +48,7 @@ def process_evas(evas, hourSlice, date, security_token):
 #=======================================
 # Main
 try:
+    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerPlanned: start work")
     # preparatory work: set hourslice and date
     start = datetime.now()
     hourSlice = start.hour
