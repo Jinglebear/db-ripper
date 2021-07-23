@@ -24,8 +24,8 @@ def process_evas(evas, hourSlice, date, security_token):
             if calls_in_minute < Utils.timetableInvocationLimit:
                 calls_in_minute += 1
             else:
-                time.sleep(60 - datetime.now().second)
-                calls_in_minute = 0
+                time.sleep(60)
+                calls_in_minute = 1
             
             # api request
             header = {
