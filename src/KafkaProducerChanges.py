@@ -6,7 +6,7 @@ try:
     import time
     from kafka import KafkaProducer
     import requests 
-    from utility import Utils
+    from Utility import Utils
 except Exception as e:
     print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: Exception by import", e, file=sys.stderr)
 
@@ -30,7 +30,7 @@ def work_thread(eva_numbers, security_token):
                 'Authorization': security_token,
             } 
             try:  
-                response = requests.get(Utils.get_changes_url(eva), headers=header)
+                response = session.get(Utils.get_changes_url(eva), headers=header)
                 if response.status_code==200:
                     producer.send(topic=Utils.topicForChangedTimetabled, value=response.content)
                 else:
@@ -41,6 +41,7 @@ def work_thread(eva_numbers, security_token):
 
 ## Work
 try:
+    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: start work")
     # Produce information end send to kafka
     # preparatory work: set hourslice and date
     start = datetime.now()
