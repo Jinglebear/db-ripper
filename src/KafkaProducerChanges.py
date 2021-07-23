@@ -43,6 +43,7 @@ def work_thread(eva_numbers, security_token):
 try:
     # Produce information end send to kafka
     # preparatory work: set hourslice and date
+    start = datetime.now()
     hourSlice = start.hour
     # date in format: YYMMDD
     date = (str(start.year%1000) + 
