@@ -89,18 +89,18 @@ weatherTimeInterval = 3600
 
 
 def cityEvaRead():
-    return open('../../misc/table-1-sorted(category4).csv', 'r')
+    return open('../misc/table-2-sorted(category4).csv', 'r')
 
 
 def cityEvaWrite():
-    return open('../../misc/table-1-result.csv', 'w')
+    return open('../misc/table-1-result.csv', 'w')
 
 
 def parkingIDRead():
-    return open('../../misc/parking-allocations.csv', 'r')
+    return open('../misc/parking-allocations.csv', 'r')
 
 def cityNameRead():
-    return open('../../misc/table-2-sorted(category4).csv','r')
+    return open('../misc/table-2-sorted(category4).csv','r')
 
 
 # extract parking IDs out of csv file
