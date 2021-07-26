@@ -19,12 +19,6 @@ def work_thread(eva_numbers, security_token):
     calls_in_minute=0
     with requests.Session() as session:
         for eva in eva_numbers:
-            if calls_in_minute < Utils.timetableInvocationLimit:
-                calls_in_minute += 1
-            else:
-                time.sleep(60)
-                calls_in_minute = 1
-
             header = {
                 'Accept': 'application/xml',
                 'Authorization': security_token,
@@ -55,7 +49,7 @@ try:
     # load eva numbers
     evas = Utils.get_eva_numbers()
     # load tokens
-    tokens = Utils.tokenlistTimePark
+    tokens = Utils.tokenlistTimetable
     # eva numbers that one token will process
     evas_per_token = int(len(evas) / len(tokens)) + 1
     # divide work on token
