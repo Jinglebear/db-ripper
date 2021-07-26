@@ -19,12 +19,6 @@ def work_thread(eva_numbers, security_token):
     calls_in_minute=0
     with requests.Session() as session:
         for eva in eva_numbers:
-            if calls_in_minute < Utils.timetableInvocationLimit:
-                calls_in_minute += 1
-            else:
-                time.sleep(60)
-                calls_in_minute = 1
-
             header = {
                 'Accept': 'application/xml',
                 'Authorization': security_token,
@@ -34,7 +28,7 @@ def work_thread(eva_numbers, security_token):
                 if response.status_code==200:
                     producer.send(topic=Utils.topicForChangedTimetabled, value=response.content)
                 else:
-                    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail with code", response.status_code, file=sys.stderr)
+                    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail with code", response.status_code, security_token, file=sys.stderr)
             except Exception as e:
                 print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail", e, file=sys.stderr)
         producer.flush()
@@ -55,7 +49,7 @@ try:
     # load eva numbers
     evas = Utils.get_eva_numbers()
     # load tokens
-    tokens = Utils.tokenlistTimePark
+    tokens = Utils.tokenlistTimetable
     # eva numbers that one token will process
     evas_per_token = int(len(evas) / len(tokens)) + 1
     # divide work on token
