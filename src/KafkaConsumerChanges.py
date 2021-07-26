@@ -60,6 +60,8 @@ def factorize_message(xmlString):
         try:
             # get planned from elasticsearch
             sid = s.attrib['id']
+            if "-" not in sid:
+                continue
             plan = get_from_elasticsearch(sid)
             if plan == None:
                 continue
@@ -75,7 +77,7 @@ def factorize_message(xmlString):
                 plan['arTimeDiff'] = timeDiff
 
             # dpTimeDiff
-            departure = s.find('ar')
+            departure = s.find('dp')
             if departure:
                 departureTime = departure.attrib['ct']
 
@@ -85,7 +87,8 @@ def factorize_message(xmlString):
                 plan['dpTimeDiff'] = timeDiff
 
             # append message code
-            for message in s.findall('m'):
+            for message in s.findall('.//m'):
+                
                 t = message.get('t')
                 if t == None:
                     continue
@@ -93,18 +96,18 @@ def factorize_message(xmlString):
                 if t == "q":
                     # qualityDevation
                     code = message.get('c')
-                    if plan['qualityDevation'] == None:
-                        plan['qualityDevation'] == []
-                    if code not in plan['qualityDevation']:
+                    if plan.get('qualityDevation') == None:
+                        plan['qualityDevation'] = []
+                    if code not in plan.get('qualityDevation'):
                         plan['qualityDevation'].append(code)
 
                 elif t == "d":
                     # reason for delay
                     code = message.get('c')
-                    if plan['reasonForDelay'] == None:
-                        plan['reasonForDelay'] == []
-                    if code not in plan['reasonForDelay']:
-                        plan['reasonForDelay'].append(code)
+                    if plan.get('reasonForDelay') == None:
+                        plan['reasonForDelay'] = []
+                    if code not in plan.get('reasonForDelay'):
+                        plan.get('reasonForDelay').append(code)
 
             # update plan object in elasticsearch
             save_on_elasticsearch(plan, sid)

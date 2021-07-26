@@ -23,7 +23,7 @@ def save_on_elasticsearch(timetableJson, id):
 
     # store json on elasticsearch
     try:
-        response = _es.index(Utils.esIndex, body=timetableJson, id=id)
+        response = _es.index(Utils.esIndex, body=timetableJson)
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error while indexing data.", e, file=sys.stderr)
         
