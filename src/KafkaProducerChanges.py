@@ -28,7 +28,7 @@ def work_thread(eva_numbers, security_token):
                 if response.status_code==200:
                     producer.send(topic=Utils.topicForChangedTimetabled, value=response.content)
                 else:
-                    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail with code", response.status_code, file=sys.stderr)
+                    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail with code", response.status_code, security_token, file=sys.stderr)
             except Exception as e:
                 print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaProducerChanges: request fail", e, file=sys.stderr)
         producer.flush()
