@@ -2,17 +2,7 @@
 version: '2'
 
 services:
-  portainer:
-    image: portainer/portainer-ce
-    command: -H unix:///var/run/docker.sock
-    restart: always
-    ports:
-      - 9000:9000
-      - 8000:8000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    
+  
   zookeeper:
     image: confluentinc/cp-zookeeper:6.1.0
     hostname: zookeeper
@@ -50,7 +40,7 @@ services:
     depends_on:
       - kafka1
     ports:
-      - "9001:9001"
+      - "9011:9011"
     environment:
       KAFKA_BROKERCONNECT: "kafka1:9092"
       JVM_OPTS: "-Xms32M -Xmx64M"
