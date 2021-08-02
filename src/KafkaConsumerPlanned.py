@@ -26,7 +26,7 @@ def save_on_elasticsearch(timetableJson, id):
         # check if data already exists
         query = {"query":{"match":{"id":{"query":id,"operator": "and"}}}}
         object = _es.search(index=Utils.esIndex, body=query)
-        if object == None or len(object['hits']['hits'])!=1:
+        if len(object['hits']['hits'])>0:
             return
         # write on elasticsearch
         response = _es.index(Utils.esIndex, body=timetableJson)
