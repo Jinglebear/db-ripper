@@ -197,18 +197,18 @@ def create_index(_es, index_name=esIndex):
             "number_of_replicas": 0
         },
         "mappings": {
-        "properties": {
-            "location": {
-                "type": "geo_point"
-            },
-            "station": {
-                "type": "text"
-            },
-            "arTime": {
-                "type": "integer"
+            "properties": {
+                "location": {
+                    "type": "geo_point"
+                },
+                "station": {
+                    "type": "text"
+                },
+                "arTime": {
+                    "type": "integer"
+                }
             }
         }
-    }
     }
 
     try:
