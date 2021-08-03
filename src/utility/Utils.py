@@ -163,7 +163,6 @@ def get_cityName_Weather():
 # =====================================
 # Elasticsearch
 
-
 # default Index for elasticsearch
 esIndex = 'timetable'
 
@@ -196,7 +195,20 @@ def create_index(_es, index_name=esIndex):
         "settings": {
             "number_of_shards": 1,
             "number_of_replicas": 0
+        },
+        "mappings": {
+        "properties": {
+            "location": {
+                "type": "geo_point"
+            },
+            "station": {
+                "type": "text"
+            },
+            "arTime": {
+                "type": "integer"
+            }
         }
+    }
     }
 
     try:
