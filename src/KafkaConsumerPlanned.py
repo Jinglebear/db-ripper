@@ -76,7 +76,7 @@ def factorize_message(xmlString):
             trainInformation['location'] = get_Location(trainStation, station_data=station_data)
             # timestamp for elasticsearch
             currentDT = datetime.now() + timedelta(hours=1)
-            trainInformation['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            trainInformation['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
             trainInformation['station'] = trainStation
 

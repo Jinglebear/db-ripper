@@ -209,7 +209,7 @@ def create_index(_es, index_name=esIndex):
                 },
                 "timestamp": {
                     "type": "date",
-                    "format": "yyyy-MM-dd HH:mm:ss"
+                    "format": "yyyy-MM-dd'T'HH:mm:ss"
                 }
             }
         }
