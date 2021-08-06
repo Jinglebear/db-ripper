@@ -37,7 +37,7 @@ def readStationData(filename):
     return station_data
 
 #function call to get station_data (stationName,stationCategory,Coordinates)
-station_data=readStationData("/home/nils/db-ripper/misc/test_table_result.csv")
+station_data=readStationData("/home/bigdata/db-ripper/misc/test_table_result.csv")
 
 #para = stationName
 #ret = location array [long,lat]
