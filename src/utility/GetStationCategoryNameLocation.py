@@ -78,7 +78,7 @@ def send_on_success(record_metadata):
 
 
 # array with the important station data
-stations = readStation("/home/nils/db-ripper/misc/Mappe1.csv")
+stations = readStation("/home/bigdata/db-ripper/misc/Mappe1.csv")
 
 
 base_request_string = "https://api.deutschebahn.com/stada/v2/stations/"
@@ -97,11 +97,11 @@ for i in range(30):
 computeGeoData(stations, base_request_string, headers_arr,
                resultArr, failArr, counterArr=counterArr)
 
-with open("/home/nils/db-ripper/misc/test_table_result.csv", "w", newline='', encoding='utf-8') as resultfile:
+with open("/home/bigdata/db-ripper/misc/test_table_result.csv", "w", newline='', encoding='utf-8') as resultfile:
     writer = csv.writer(resultfile)
     for result in resultArr:
         writer.writerow(result)
-with open("/home/nils/db-ripper/misc/test_table_fail.csv", "w", newline='', encoding='utf-8') as failfile:
+with open("/home/bigdata/db-ripper/misc/test_table_fail.csv", "w", newline='', encoding='utf-8') as failfile:
     writer = csv.writer(failfile)
     for fail in failArr:
         writer.writerow(fail)
