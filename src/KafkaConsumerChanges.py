@@ -109,10 +109,14 @@ def factorize_message(xmlString):
                     if code not in plan.get('reasonForDelay'):
                         plan.get('reasonForDelay').append(code)
 
+        except Exception as e:
+            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerChanges: Error in an event", e, file=sys.stderr)
+            
+        try:
             # update plan object in elasticsearch
             save_on_elasticsearch(plan, sid)
         except Exception as e:
-            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerChanges: Error in an event", e, file=sys.stderr)
+            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerChanges: Error on save in elasticsearch", e, file=sys.stderr)
             
 ## Work
 print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "KafkaConsumerChanges: start consumer")

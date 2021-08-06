@@ -37,7 +37,8 @@ tokenlistTimetable = ["Bearer 5002ccf110d8028b495e68b94b20f34b", "Bearer d7b4c9d
                       "Bearer 91e5005e763756a5cbf10f08b70be49f", "Bearer cd4e75acf162aded388fac9b33d47b8e", "Bearer cf7206e70b3a676378537b3f10fab140",
                       "Bearer 9e432a5c44e30d8d99879289b816f54a", "Bearer 1d95b3eeeb1c3b43b3a93d4d79efe8a8", "Bearer e0da58c61723f1f1e46b9277a4ab19f7",
                       "Bearer a232ac0c7405229aab90cba202933733", "Bearer 034255b708bcf4999d24ef68320ad5bc", "Bearer 83efe2743608bbe15acc89ec5bf76559",
-                      "Bearer dae86c9e2f0831e23ed792f842b06dee", "Bearer 68926b817f10d72896dec1a3429b3569"] + (tokenlistTimePark)
+                      "Bearer dae86c9e2f0831e23ed792f842b06dee", "Bearer 68926b817f10d72896dec1a3429b3569", "Bearer f5f89a18a98160c4cb7072ab2e36dcea",
+                      "Bearer edba688f58d3a47c716b32080b2ea2ed", "Bearer 3cd12d8d9c769aa2f9ebe426a3f9d7fc"] + (tokenlistTimePark)
 
 tokenListTimeTablePlanned = ["Bearer 13d747ec4d3615f93cca7dcf7f203389", "Bearer 873be58d3db312b4e52a2102e5641c27", "Bearer 60ac42c7b66f64a502dd01996536ae3c",
                              "Bearer 5568f3ed56ef39b53d691101d314d3a2", "Bearer b2a8eea76d8a47f7c8163265c709e9fc", "Bearer 3460d2a98af6f3cf7913fc3c332ee2df"]
@@ -162,7 +163,6 @@ def get_cityName_Weather():
 # =====================================
 # Elasticsearch
 
-
 # default Index for elasticsearch
 esIndex = 'timetable'
 
@@ -195,6 +195,19 @@ def create_index(_es, index_name=esIndex):
         "settings": {
             "number_of_shards": 1,
             "number_of_replicas": 0
+        },
+        "mappings": {
+            "properties": {
+                "location": {
+                    "type": "geo_point"
+                },
+                "station": {
+                    "type": "text"
+                },
+                "arTime": {
+                    "type": "integer"
+                }
+            }
         }
     }
 

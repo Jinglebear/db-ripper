@@ -1,4 +1,6 @@
+import csv
 import sys
+import ast
 from datetime import datetime
 
 try:
@@ -9,6 +11,27 @@ try:
     from utility import Utils
 except Exception as e:
     print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Exception by import", e, file=sys.stderr)
+
+def readStationData(filename):
+    station_data =[]
+    with open(filename,encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            station_data.append(row)
+    return station_data
+
+#function call to get station_data (stationName,stationCategory,Coordinates)
+station_data=readStationData("/home/johannes/db-ripper/misc/test_table_result.csv")
+
+#para = stationName
+#ret = location array [long,lat]
+#lookup coordinates from list
+def get_Location(stationName,station_data):
+    for station in station_data:
+        if(station[0] == stationName):
+            coordinates_data=ast.literal_eval(station[3])
+            coordinates = coordinates_data.get("coordinates")
+            return coordinates
 
 # save incoming json on elasticsearch
 def save_on_elasticsearch(timetableJson, id):
@@ -23,7 +46,8 @@ def save_on_elasticsearch(timetableJson, id):
 
     # store json on elasticsearch
     try:
-        response = _es.index(Utils.esIndex, body=timetableJson)
+        # write on elasticsearch
+        response = _es.index(Utils.esIndex, body=timetableJson, id=id)
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error while indexing data.", e, file=sys.stderr)
         
@@ -48,6 +72,7 @@ def factorize_message(xmlString):
             # save values in trainInformation
             trainInformation = {}
             trainInformation['station'] = trainStation
+            trainInformation['location'] = get_Location(trainStation, station_data=station_data)
 
             trainInformation['event'] = 'timetable'
             trainInformation['id'] = s.attrib['id']
