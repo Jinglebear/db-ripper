@@ -1,6 +1,6 @@
 #!/bin/bash
 
-user=johannes
+user=bigdata
 path=/home/"$user"/db-ripper
 
 python3 "$path"/src/KafkaConsumerPlanned.py >> "$path"/misc/logs/logKafkaConsumerPlanned.log 2>> "$path"/misc/err_logs/ErrLogKafkaConsumerPlanned.log&
