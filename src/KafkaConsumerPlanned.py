@@ -1,7 +1,7 @@
 import csv
 import sys
 import ast
-from datetime import datetime
+from datetime import datetime, timedelta
 
 try:
     import threading
@@ -71,8 +71,14 @@ def factorize_message(xmlString):
         try:
             # save values in trainInformation
             trainInformation = {}
-            trainInformation['station'] = trainStation
+
+            # location coordinates with lon and lan for elasticsearch
             trainInformation['location'] = get_Location(trainStation, station_data=station_data)
+            # timestamp for elasticsearch
+            currentDT = datetime.now() + timedelta(hours=1)
+            trainInformation['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            trainInformation['station'] = trainStation
 
             trainInformation['event'] = 'timetable'
             trainInformation['id'] = s.attrib['id']

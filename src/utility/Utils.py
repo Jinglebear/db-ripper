@@ -206,6 +206,10 @@ def create_index(_es, index_name=esIndex):
                 },
                 "arTime": {
                     "type": "integer"
+                },
+                "timestamp": {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss"
                 }
             }
         }
