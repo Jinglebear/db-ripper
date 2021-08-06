@@ -96,7 +96,7 @@ weatherTimeInterval = 3600
 
 
 def cityEvaRead():
-    return open('/home/johannes/db-ripper/misc/table-2-sorted(category4).csv', 'r')
+    return open('/home/bigdata/db-ripper/misc/table-2-sorted(category4).csv', 'r')
 
 
 def cityEvaWrite():
