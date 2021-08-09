@@ -43,7 +43,6 @@ def factorize_message(kafkaJsonWeatherData):
         coord= [kafkaJsonWeatherData['coord']['lon'],kafkaJsonWeatherData['coord']['lat']]
         weatherInformation['Coordinaten']=coord
 
-        weatherInformation['weatherId']=kafkaJsonWeatherData['weather']['id']
         weatherInformation['weatherDiscription']= kafkaJsonWeatherData['weather']['main']
         weatherInformation['weatherSpecificDiscription']=kafkaJsonWeatherData['weather']['description']
 
@@ -60,7 +59,7 @@ def factorize_message(kafkaJsonWeatherData):
 
         # transform dictinary to json and save on elasticsearch
         json_object = json.dumps(weatherInformation)
-        save_on_elasticsearch(json_object, weatherInformation['id'])# nach Wetterid ablegen oder CityName
+        save_on_elasticsearch(json_object, weatherInformation['cityname'])# nach Wetterid ablegen oder CityName
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerWeather: Error in an event", file=sys.stderr)
 
