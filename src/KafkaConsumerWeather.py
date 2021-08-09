@@ -35,7 +35,6 @@ def save_on_elasticsearch(weatherJson, id):
 # create json and give them to save_on_elasticsearch
 def factorize_message(kafkaJsonWeatherData):
 
-    # child of weather are event with tag "s"
     try:
         # save values in weatherInformation
         weatherInformation = {}
@@ -56,7 +55,7 @@ def factorize_message(kafkaJsonWeatherData):
 
         currentDT = datetime.now() + timedelta(hours=1)
         currentDT_formated = currentDT.strftime("%Y-%m-%dT%H:%M:%S")
-        #add formatted timestamp to parkingInformation JSON Object
+        #add formatted timestamp to weatherInformation JSON Object
         weatherInformation['timestamp'] = currentDT_formated
 
         # transform dictinary to json and save on elasticsearch
@@ -74,16 +73,6 @@ for message in consumer:
     messageValueAsString = messageValue.decode('utf-8')
     thread = threading.Thread(target=factorize_message, args=(json.loads(messageValueAsString),))
     thread.start()
-
-
-
-
-
-
-
-
-
-
 
 for message in consumer:
     print ("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition, message.offset, message.key, message.value))
