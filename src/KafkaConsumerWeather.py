@@ -59,7 +59,7 @@ def factorize_message(kafkaJsonWeatherData):
 
         # transform dictinary to json and save on elasticsearch
         json_object = json.dumps(weatherInformation)
-        save_on_elasticsearch(json_object, weatherInformation['cityname'])# nach Wetterid ablegen oder CityName
+        save_on_elasticsearch(json_object)# nach Wetterid ablegen oder CityName
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerWeather: Error in an event", file=sys.stderr)
 
