@@ -17,7 +17,6 @@ def send_on_success(record_metadata):
 
 # iterate over eva numbers and send response to kafka in a thread
 def work_thread(cityNames, security_token):
-
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
     
     
@@ -39,14 +38,14 @@ def work_thread(cityNames, security_token):
 
 
 # Produce information end send to kafka
-    ##Work
-    # load cityNames
-    cityNames = Utils.get_cityName_Weather()
-    # load tokens
-    tokens = Utils.tokenlistWeather
-    # eva numbers that one token will process
-    city_per_token = int(len(cityNames) / len(tokens)) + 1
-    # divide work on token
-    for x in range(len(tokens)):
-        thread = threading.Thread(target=work_thread, args=(cityNames[x*city_per_token:(x+1)*city_per_token], tokens[x]))
-        thread.start()
+##Work
+# load cityNames
+cityNames = Utils.get_cityName_Weather()
+# load tokens
+tokens = Utils.tokenlistWeather
+# eva numbers that one token will process
+city_per_token = int(len(cityNames) / len(tokens)) + 1
+# divide work on token
+for x in range(len(tokens)):
+    thread = threading.Thread(target=work_thread, args=(cityNames[x*city_per_token:(x+1)*city_per_token], tokens[x]))
+    thread.start()
