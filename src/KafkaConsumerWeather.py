@@ -52,6 +52,8 @@ def factorize_message(kafkaJsonWeatherData):
 
         weatherInformation['wind_Speed']= kafkaJsonWeatherData['wind']['speed']
 
+        weatherInformation['event']='weather'
+
         currentDT = datetime.now() + timedelta(hours=1)
         currentDT_formated = currentDT.strftime("%Y-%m-%dT%H:%M:%S")
         #add formatted timestamp to weatherInformation JSON Object
