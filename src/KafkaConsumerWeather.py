@@ -41,14 +41,14 @@ def factorize_message(kafkaJsonWeatherData):
 
         weatherInformation['cityname']= kafkaJsonWeatherData['name']
         coord= [kafkaJsonWeatherData['coord']['lon'],kafkaJsonWeatherData['coord']['lat']]
-        weatherInformation['Coordinaten']=coord
+        weatherInformation['coordinates']=coord
 
-        weatherInformation['weatherDiscription']= kafkaJsonWeatherData['weather']['main']
+        weatherInformation['weatherDescription']= kafkaJsonWeatherData['weather']['main']
         weatherInformation['weatherSpecificDiscription']=kafkaJsonWeatherData['weather']['description']
 
-        weatherInformation['temprature']=kafkaJsonWeatherData['main']['temp']
-        weatherInformation['temprature_Min']=kafkaJsonWeatherData['main']['temp_min']
-        weatherInformation['temprature_Max']=kafkaJsonWeatherData['main']['temp_max']
+        weatherInformation['temperature']=kafkaJsonWeatherData['main']['temp']
+        weatherInformation['temperature_Min']=kafkaJsonWeatherData['main']['temp_min']
+        weatherInformation['temperature_Max']=kafkaJsonWeatherData['main']['temp_max']
 
         weatherInformation['wind_Speed']= kafkaJsonWeatherData['wind']['speed']
 

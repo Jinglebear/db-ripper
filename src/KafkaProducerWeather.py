@@ -43,7 +43,7 @@ def work_thread(cityNames, security_token):
     # load cityNames
     cityNames = Utils.get_cityName_Weather()
     # load tokens
-    tokens = Utils.tokenlistWaether
+    tokens = Utils.tokenlistWeather
     # eva numbers that one token will process
     city_per_token = int(len(cityNames) / len(tokens)) + 1
     # divide work on token
