@@ -74,6 +74,8 @@ def factorize_message(xmlString):
                 timeDiff = int(arriveTime) - int(plan['arTime'])
                 if timeDiff < 0:
                     timeDiff = timeDiff * -1
+                if timeDiff >= 7640:
+                    timeDiff = timeDiff - 7640
                 plan['arTimeDiff'] = timeDiff
 
             # dpTimeDiff
@@ -84,6 +86,8 @@ def factorize_message(xmlString):
                 timeDiff = int(departureTime) - int(plan['dpTime'])
                 if timeDiff < 0:
                     timeDiff = timeDiff * -1
+                if timeDiff >= 7640:
+                    timeDiff = timeDiff - 7640
                 plan['dpTimeDiff'] = timeDiff
 
             # append message code
