@@ -159,6 +159,7 @@ def get_cityName_Weather():
                 cityNames.append(lineArr[3])
         except:
             print("Error in: extract cityNames for Weather from csv")
+    return cityNames
 
 # =====================================
 # Elasticsearch
