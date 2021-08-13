@@ -11,8 +11,6 @@ authTokenList=Utils.tokenlistWeather
 timeIntervalInSec = Utils.weatherTimeInterval
 topic = Utils.topicWeather
 
-def send_on_success(record_metadata):
-    print('topic:',record_metadata.topic,'partition:',record_metadata.partition)
 
 
 # iterate over eva numbers and send response to kafka in a thread
@@ -31,7 +29,7 @@ def work_thread(cityNames, security_token):
             try:  
                 response = session.get(Utils.get_weather_url(city,security_token))
                 if response.status_code==200:
-                    producer.send(topic=topic, value=response.content).add_callback(send_on_success)
+                    producer.send(topic=topic, value=response.content)
             except Exception as e:
                 print(e)
         producer.flush()
