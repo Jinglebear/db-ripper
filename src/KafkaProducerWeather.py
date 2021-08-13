@@ -6,7 +6,7 @@ import requests
 from utility import Utils
 
 # load constants
-authTokenList=Utils.tokenlistWaether
+authTokenList=Utils.tokenlistWeather
 
 timeIntervalInSec = Utils.weatherTimeInterval
 topic = Utils.topicWeather
