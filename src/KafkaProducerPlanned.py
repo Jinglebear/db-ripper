@@ -10,7 +10,7 @@ try:
     import sys
     from datetime import datetime
 except Exception as e:
-    Utils.print_error("KafkaProducerPlanned", "Error while import - " + e)
+    Utils.print_error("KafkaProducerPlanned", "Error while import", e)
 
 # process_evas get an slice with eva_numbers, hourSlice and date for the request.
 # request api with given eva numbers and save data in kafka
@@ -42,7 +42,7 @@ def process_evas(evas, hour_slice, date, security_token):
                 else:
                     Utils.print_error("KafkaProducerPlanned", "request fail with code " + response.status_code)
             except Exception as e:
-                Utils.print_error("KafkaProducerPlanned", "request fail - " + e)
+                Utils.print_error("KafkaProducerPlanned", "request fail", e)
     # wait until every producer send his data
     producer.flush()
 
@@ -71,4 +71,4 @@ try:
         thread = threading.Thread(target=process_evas, args=(evas[x*evas_per_token:(x+1)*evas_per_token], hour_slice, date, tokens[x]))
         thread.start()
 except Exception as e:
-    Utils.print_error("KafkaProducerPlanned", "Error while main - " + e)
+    Utils.print_error("KafkaProducerPlanned", "Error while main", e)

@@ -9,7 +9,7 @@ try:
     import sys
     from datetime import datetime, timedelta
 except Exception as e:
-    Utils.print_error("KafkaConsumerPlannes", "Error while import - " + e)
+    Utils.print_error("KafkaConsumerPlannes", "Error while import", e)
 
 # save incoming json on elasticsearch
 def save_on_elasticsearch(timetable_json, id):
@@ -27,7 +27,7 @@ def save_on_elasticsearch(timetable_json, id):
         # write on elasticsearch
         es.index(Utils.es_default_index, body=timetable_json, id=id)
     except Exception as e:
-        Utils.print_error("KafkaConsumerPlanned", "Error while indexing data - " + e)
+        Utils.print_error("KafkaConsumerPlanned", "Error while indexing data", e)
         
 
 
@@ -77,7 +77,7 @@ def factorize_message(xml_string):
             json_object = json.dumps(train_information)
             save_on_elasticsearch(json_object, train_information['id'])
         except Exception as e:
-            Utils.print_error("KafkaConsumerPlanned", "Error while extracting data from kafka message - " + e)
+            Utils.print_error("KafkaConsumerPlanned", "Error while extracting data from kafka message", e)
 
 ## Work
 Utils.print_log("KafkaConsumerPlanned", "start consumer")

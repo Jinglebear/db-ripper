@@ -5,7 +5,7 @@ try:
     import requests
     from datetime import datetime
 except Exception as e:
-    Utils.print_error("KafkaProducerParking", "Error while import - " + e)
+    Utils.print_error("KafkaProducerParking", "Error while import", e)
 
 # callback of kafka if send successfull
 def send_on_success(record_metadata):
@@ -23,7 +23,7 @@ def process_parking_ids(request_string, header):
         else:
             Utils.print_error("KafkaProducerParking", "request fail with code " + response.status_code)
     except Exception as e:
-        Utils.print_error("KafkaProducerParking", "request fail - " + e)
+        Utils.print_error("KafkaProducerParking", "request fail", e)
     # wait until every producer send his data
     producer.flush()
 

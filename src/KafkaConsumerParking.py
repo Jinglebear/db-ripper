@@ -6,7 +6,7 @@ try:
     import sys
     import json
 except Exception as e:
-    Utils.print_error("KafkaConsumerParking", "Error while import - " + e)
+    Utils.print_error("KafkaConsumerParking", "Error while import", e)
 
 
 # save incoming json on elasticsearch
@@ -23,7 +23,7 @@ def save_on_elasticsearch(parking_space_json, id):
     try:
         _es.index(Utils.es_default_index, body=parking_space_json)
     except Exception as e:
-        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Error while indexing data.", e, file=sys.stderr)
+        Utils.print_error("KafkaConsumerParking", "Error while indexing data", e)
 
 import csv
 

@@ -7,7 +7,7 @@ try:
     import sys
     from datetime import datetime
 except Exception as e:
-    Utils.print_error("KafkaPrdoucerChanges", "Error while import - " + e)
+    Utils.print_error("KafkaPrdoucerChanges", "Error while import", e)
 
 
 # iterate over eva numbers and send response to kafka in a thread
@@ -28,7 +28,7 @@ def work_thread(eva_numbers, security_token):
                 else:
                     Utils.print_error("KafkaProducerChanges", "Request fail with code " + response.status_code)
             except Exception as e:
-                Utils.print_error("KafkaProducerChanges", "request fail - " + e)
+                Utils.print_error("KafkaProducerChanges", "request fail", e)
         producer.flush()
 
 ## Work
@@ -55,4 +55,4 @@ try:
         thread = threading.Thread(target=work_thread, args=(evas[x*evas_per_token:(x+1)*evas_per_token], tokens[x]))
         thread.start()
 except Exception as e:
-    Utils.print_error("KafkaProducerChanges", "Error while main - " + e)
+    Utils.print_error("KafkaProducerChanges", "Error while main", e)

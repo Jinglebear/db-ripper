@@ -9,7 +9,7 @@ try:
     import json
     import threading
 except Exception as e:
-    Utils.print_error("KafkaConsumerChanges", "Error while import - " + e)
+    Utils.print_error("KafkaConsumerChanges", "Error while import", e)
 
 # message code dictionary
 code_dict = {
@@ -185,13 +185,13 @@ def factorize_message(xml_string):
                     add_code(name = "reasonForDelay", message = message, plan = plan)
 
         except Exception as e:
-            Utils.print_error("KafkaConsumerChanges", "Error in processing kafka message -" + e)
+            Utils.print_error("KafkaConsumerChanges", "Error in processing kafka message", e)
             
         try:
             # update plan object in elasticsearch
             save_on_elasticsearch(plan, sid)
         except Exception as e:
-            Utils.print_error("KafkaConsumerChanges", "Error while save on elasticsearch - " + e)
+            Utils.print_error("KafkaConsumerChanges", "Error while save on elasticsearch", e)
             
 ## Work
 Utils.print_log("KafkaConsumerChanges", "start consumer")
