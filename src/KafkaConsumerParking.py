@@ -72,7 +72,7 @@ def extract_space_data(response):
             ##array consisting of long and lat
             parkingInformation['location']= get_Location(allocation_station_name,station_data=station_data)
             #create timestamp for elastic search
-            currentDT = datetime.now() + timedelta(hours=1)
+            currentDT = datetime.now()
             currentDT_formated = currentDT.strftime("%Y-%m-%dT%H:%M:%S")
             #add formatted timestamp to parkingInformation JSON Object
             parkingInformation['timestamp'] = currentDT_formated
