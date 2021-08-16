@@ -1,18 +1,16 @@
-import csv
-import sys
-import ast
-from datetime import datetime, timedelta
+from utility import Utils
+
 try:
     from kafka import KafkaConsumer
-    from utility import Utils
+    from datetime import datetime, timedelta
+    import sys
     import json
-    import requests
 except Exception as e:
-    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Exception by import", e, file=sys.stderr)
+    Utils.print_error("KafkaConsumerParking", "Error while import - " + e)
 
 
 # save incoming json on elasticsearch
-def save_on_elasticsearch(parkingSpaceJson, id):
+def save_on_elasticsearch(parking_space_json, id):
     # connect to elasticsearch with default config
     _es = Utils.connect_elasticsearch()
     if (_es == None):
@@ -23,32 +21,11 @@ def save_on_elasticsearch(parkingSpaceJson, id):
     Utils.create_index(_es)
 
     try:
-        _es.index(Utils.esIndex, body=parkingSpaceJson)
+        _es.index(Utils.es_default_index, body=parking_space_json)
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Error while indexing data.", e, file=sys.stderr)
 
 import csv
-def readStationData(filename):
-    station_data =[]
-    with open(filename,encoding='utf-8') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            station_data.append(row)
-    return station_data
-
-#function call to get station_data (stationName,stationCategory,Coordinates)
-station_data=readStationData("/home/bigdata/db-ripper/misc/test_table_result.csv")
-
-#para = stationName
-#ret = location array [long,lat]
-#lookup coordinates from list
-def get_Location(stationName,station_data):
-    for station in station_data:
-        if(station[0] == stationName):
-            coordinates_data=ast.literal_eval(station[3])
-            coordinates = coordinates_data.get("coordinates")
-            return coordinates
-    
 
 # fetch space data, create json and save on elasticsearch
 def extract_space_data(response):
@@ -56,7 +33,7 @@ def extract_space_data(response):
     allocations = response['allocations']
 
     for allocation in allocations:
-        parkingInformation = {}
+        parking_information = {}
 
         if(len(allocation["allocation"]) == 6):
             allocation_id = allocation['space']['id']
@@ -65,23 +42,23 @@ def extract_space_data(response):
             allocation_category = allocation['allocation']['category']
             
             
-            parkingInformation['spaceID'] = allocation_id
-            parkingInformation['stationName'] = allocation_station_name
-            parkingInformation['parkingCategory'] = allocation_category
-            parkingInformation['event'] = 'parking'
+            parking_information['spaceID'] = allocation_id
+            parking_information['stationName'] = allocation_station_name
+            parking_information['parkingCategory'] = allocation_category
+            parking_information['event'] = 'parking'
             ##array consisting of long and lat
-            parkingInformation['location']= get_Location(allocation_station_name,station_data=station_data)
+            parking_information['location']= Utils.get_location(allocation_station_name)
             #create timestamp for elastic search
-            currentDT = datetime.now() + timedelta(hours=1)
-            currentDT_formated = currentDT.strftime("%Y-%m-%dT%H:%M:%S")
+            current_dt = datetime.now() + timedelta(hours=1)
+            current_dt_formated = current_dt.strftime("%Y-%m-%dT%H:%M:%S")
             #add formatted timestamp to parkingInformation JSON Object
-            parkingInformation['timestamp'] = currentDT_formated
+            parking_information['timestamp'] = current_dt_formated
             #write JSON object on elasticsearch
-            parkingInformation_asJson = json.dumps(parkingInformation,indent=5)
-            print(parkingInformation_asJson)
-            save_on_elasticsearch(json.dumps(parkingInformation,indent=5),id=allocation_id)
+            parking_information_as_json = json.dumps(parking_information,indent=5)
+            print(parking_information_as_json)
+            save_on_elasticsearch(json.dumps(parking_information,indent=5),id=allocation_id)
 
-consumer = KafkaConsumer(Utils.topicParkingTimetables, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
+consumer = KafkaConsumer(Utils.topic_parking, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
     messageValue = message.value

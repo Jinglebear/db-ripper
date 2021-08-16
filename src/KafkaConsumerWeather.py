@@ -25,7 +25,7 @@ def save_on_elasticsearch(weatherJson, id):
 
     # store json on elasticsearch
     try:
-        response = _es.index(Utils.esIndex, body=weatherJson)
+        response = _es.index(Utils.es_default_index, body=weatherJson)
     except Exception as e:
         print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerWeather: Error while indexing data.", e, file=sys.stderr)
         
@@ -67,7 +67,7 @@ def factorize_message(kafkaJsonWeatherData):
 
 ## Work
 print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "KafkaConsumerWeather: start consumer")
-consumer = KafkaConsumer(Utils.topicWeather, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
+consumer = KafkaConsumer(Utils.topic_weather, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
     messageValue = message.value

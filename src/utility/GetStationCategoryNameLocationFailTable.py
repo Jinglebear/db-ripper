@@ -83,7 +83,7 @@ base_request_string = "https://api.deutschebahn.com/stada/v2/stations/"
 resultArr = []
 failArr = []
 
-tokenArr = Utils.tokenlistTimePark
+tokenArr = Utils.tokens_timetable_parking
 headers_arr = []
 for token in tokenArr:
     header = {'Accept': 'application/json', 'Authorization': token}

@@ -6,22 +6,22 @@ import requests
 from utility import Utils
 
 # load constants
-authTokenList=Utils.tokenlistWeather
+authTokenList=Utils.tokens_weather
 
 timeIntervalInSec = Utils.weatherTimeInterval
-topic = Utils.topicWeather
+topic = Utils.topic_weather
 
 
 
 # iterate over eva numbers and send response to kafka in a thread
-def work_thread(cityNames, security_token):
+def work_thread(city_names, security_token):
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
     
     
     calls_in_minute=0
     with requests.Session() as session:
-        for city in cityNames:
-            if calls_in_minute < Utils.weatherInvocationLimit:
+        for city in city_names:
+            if calls_in_minute < Utils.weather_invocation_limit:
                 calls_in_minute += 1
             else:
                 time.sleep(60 - datetime.now().second)
@@ -38,9 +38,9 @@ def work_thread(cityNames, security_token):
 # Produce information end send to kafka
 ##Work
 # load cityNames
-cityNames = Utils.get_cityName_Weather()
+cityNames = Utils.get_city_name_weather()
 # load tokens
-tokens = Utils.tokenlistWeather
+tokens = Utils.tokens_weather
 # eva numbers that one token will process
 city_per_token = int(len(cityNames) / len(tokens)) + 1
 # divide work on token
