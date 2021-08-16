@@ -29,7 +29,7 @@ def save_on_elasticsearch(weatherJson):
 
     # store json on elasticsearch
     try:
-        _es.index(Utils.esIndex, body=weatherJson)
+        _es.index(Utils.es_default_index, body=weatherJson)
         print("Success!")
         # print(response)
     except Exception as e:

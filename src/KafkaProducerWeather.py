@@ -5,11 +5,8 @@ from kafka import KafkaProducer
 import requests
 from utility import Utils
 
-# load constants
-authTokenList=Utils.tokens_weather
 
-timeIntervalInSec = Utils.weatherTimeInterval
-topic = Utils.topic_weather
+
 
 
 
@@ -41,10 +38,11 @@ def work_thread(city_names, security_token):
 # Produce information end send to kafka
 ##Work
 # load cityNames
-cityNames = Utils.get_cityName_Weather()
-print(cityNames ,"\n\n\n")
+topic = Utils.topic_weather
+city_names = Utils.get_city_name_weather()
+print(city_names ,"\n\n\n")
 # load tokens
-tokens = Utils.tokenlistWeather
+tokens = Utils.tokens_weather
 print("Tokens: \n" , tokens)
 # eva numbers that one token will process
 # city_per_token = int(len(cityNames) / len(tokens)) + 1
@@ -53,4 +51,4 @@ print("Tokens: \n" , tokens)
 #     thread = threading.Thread(target=work_thread, args=(cityNames[x*city_per_token:(x+1)*city_per_token], tokens[x]))
 #     thread.start()
 print("Method call: \n\n\n")
-work_thread(cityNames=cityNames,security_token=tokens[0])
+work_thread(city_names=city_names,security_token=tokens[0])
