@@ -1,35 +1,29 @@
-import sys
-from datetime import datetime
+from utility import Utils
+
 try:
-    from kafka import KafkaProducer
-    from utility import Utils
+    from kafka import KafkaProducer    
     import requests
+    from datetime import datetime
 except Exception as e:
-    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-          "KafkaProducerParking: Exception by import", e, file=sys.stderr)
+    Utils.print_error("KafkaProducerParking", "Error while import - " + e)
+
 # callback of kafka if send successfull
-
-
 def send_on_success(record_metadata):
-    print('topic:', record_metadata.topic,
-          'partition:', record_metadata.partition)
+    Utils.print_log("KafkaProducerParking", 'topic: '+ record_metadata.topic + ' partition: ' + record_metadata.partition)
 
-
-def process_parking_IDs(request_string, header):
+def process_parking_ids(request_string, header):
     # create producer
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
     try:
         # api request
         response = requests.get(request_string, headers=header)
         if(response.status_code == 200):
-            producer.send(topic=Utils.topicParkingTimetables,
+            producer.send(topic=Utils.topic_parking,
                           value=response.content).add_callback(send_on_success)
         else:
-            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                  "KafkaProducerParking: request fail with code", response.status_code, file=sys.stderr)
+            Utils.print_error("KafkaProducerParking", "request fail with code " + response.status_code)
     except Exception as e:
-        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-              "KafkaProducerParking: request fail", e, file=sys.stderr)
+        Utils.print_error("KafkaProducerParking", "request fail - " + e)
     # wait until every producer send his data
     producer.flush()
 
@@ -38,8 +32,7 @@ def process_parking_IDs(request_string, header):
 # Main
 try:
     # function call
-    process_parking_IDs(request_string=Utils.get_parking_url(),
+    process_parking_ids(request_string=Utils.get_parking_url(),
                         header=Utils.ParkingHeader)
 except Exception as e:
-    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-          "KafkaProducerParking: Exception in main", e, file=sys.stderr)
+    Utils.print_error("KafkaProducerParking", "Error while main")

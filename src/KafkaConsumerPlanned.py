@@ -1,66 +1,44 @@
-import csv
-import sys
-import ast
-from datetime import datetime, timedelta
+
+from utility import Utils
 
 try:
     import threading
     from kafka import KafkaConsumer
     import xml.etree.ElementTree as ET
     import json
-    from utility import Utils
+    import sys
+    from datetime import datetime, timedelta
 except Exception as e:
-    print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Exception by import", e, file=sys.stderr)
-
-def readStationData(filename):
-    station_data =[]
-    with open(filename,encoding='utf-8') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            station_data.append(row)
-    return station_data
-
-#function call to get station_data (stationName,stationCategory,Coordinates)
-station_data=readStationData("/home/bigdata/db-ripper/misc/test_table_result.csv")
-
-#para = stationName
-#ret = location array [long,lat]
-#lookup coordinates from list
-def get_Location(stationName,station_data):
-    for station in station_data:
-        if(station[0] == stationName):
-            coordinates_data=ast.literal_eval(station[3])
-            coordinates = coordinates_data.get("coordinates")
-            return coordinates
+    Utils.print_error("KafkaConsumerPlannes", "Error while import - " + e)
 
 # save incoming json on elasticsearch
-def save_on_elasticsearch(timetableJson, id):
+def save_on_elasticsearch(timetable_json, id):
     # connect to elasticsearch with default config
-    _es = Utils.connect_elasticsearch()
-    if _es == None:
-        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Can't connect to elasticsearch", file=sys.stderr)
+    es = Utils.connect_elasticsearch()
+    if es == None:
+        Utils.print_error("KafkaConsumerPlanned", "Can't connect to elasticsearch")
         return
 
     # create index if not exists with defaultname
-    Utils.create_index(_es)
+    Utils.create_index(es)
 
     # store json on elasticsearch
     try:
         # write on elasticsearch
-        response = _es.index(Utils.esIndex, body=timetableJson, id=id)
+        es.index(Utils.es_default_index, body=timetable_json, id=id)
     except Exception as e:
-        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error while indexing data.", e, file=sys.stderr)
+        Utils.print_error("KafkaConsumerPlanned", "Error while indexing data - " + e)
         
 
 
 # factorize incoming message in a thread
 # create json and give them to save_on_elasticsearch
-def factorize_message(xmlString):
-    root = ET.fromstring(xmlString)
+def factorize_message(xml_string):
+    root = ET.fromstring(xml_string)
 
     try:
         # extract trainStation out of xml
-        trainStation = root.attrib['station']
+        train_station = root.attrib['station']
     except:
         # timetable is empty
         # possible when no train in this hourslice is planned
@@ -70,44 +48,43 @@ def factorize_message(xmlString):
     for s in root:
         try:
             # save values in trainInformation
-            trainInformation = {}
+            train_information = {}
 
             # location coordinates with lon and lan for elasticsearch
-            trainInformation['location'] = get_Location(trainStation, station_data=station_data)
+            train_information['location'] = Utils.get_location(train_station)
             # timestamp for elasticsearch
-            currentDT = datetime.now() + timedelta(hours=1)
-            trainInformation['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            train_information['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-            trainInformation['station'] = trainStation
+            train_information['station'] = train_station
 
-            trainInformation['event'] = 'timetable'
-            trainInformation['id'] = s.attrib['id']
-            tripLabel = s.find('tl')
-            trainInformation['trainType'] = tripLabel.attrib.get('f')
-            trainInformation['trainCategory'] = tripLabel.attrib.get('c')
+            train_information['event'] = 'timetable'
+            train_information['id'] = s.attrib['id']
+            trip_label = s.find('tl')
+            train_information['trainType'] = trip_label.attrib.get('f')
+            train_information['trainCategory'] = trip_label.attrib.get('c')
 
             # extract arriveTime if arrive event exist
             arrive = s.find('ar')
             if arrive != None:
-                trainInformation['arTime'] = arrive.attrib.get('pt')
+                train_information['arTime'] = arrive.attrib.get('pt')
 
             # extract departureTime if departure event exist
             departure = s.find('dp')
             if departure != None:
-                trainInformation['dpTime'] = departure.attrib.get('pt')
+                train_information['dpTime'] = departure.attrib.get('pt')
 
             # transform dictinary to json and save on elasticsearch
-            json_object = json.dumps(trainInformation)
-            save_on_elasticsearch(json_object, trainInformation['id'])
+            json_object = json.dumps(train_information)
+            save_on_elasticsearch(json_object, train_information['id'])
         except Exception as e:
-            print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerPlanned: Error in an event", s.getchildren(), file=sys.stderr)
+            Utils.print_error("KafkaConsumerPlanned", "Error while extracting data from kafka message - " + e)
 
 ## Work
-print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "KafkaConsumerPlanned: start consumer")
-consumer = KafkaConsumer(Utils.topicForPlannedTimetables, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
+Utils.print_log("KafkaConsumerPlanned", "start consumer")
+consumer = KafkaConsumer(Utils.topic_timetable_planned, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8')
-    thread = threading.Thread(target=factorize_message, args=(messageValueAsString,))
+    message_value = message.value
+    message_value_as_string = message_value.decode('utf-8')
+    thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
     thread.start()
