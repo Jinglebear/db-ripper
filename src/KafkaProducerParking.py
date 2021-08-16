@@ -21,7 +21,7 @@ def process_parking_ids(request_string, header):
             producer.send(topic=Utils.topic_parking,
                           value=response.content).add_callback(send_on_success)
         else:
-            Utils.print_error("KafkaProducerParking", "request fail with code " + response.status_code)
+            Utils.print_error("KafkaProducerParking", "request fail with code " + str(response.status_code))
     except Exception as e:
         Utils.print_error("KafkaProducerParking", "request fail", e)
     # wait until every producer send his data

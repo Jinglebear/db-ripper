@@ -26,7 +26,7 @@ def work_thread(eva_numbers, security_token):
                 if response.status_code==200:
                     producer.send(topic=Utils.topic_timetable_changed, value=response.content)
                 else:
-                    Utils.print_error("KafkaProducerChanges", "Request fail with code " + response.status_code)
+                    Utils.print_error("KafkaProducerChanges", "Request fail with code " + str(response.status_code))
             except Exception as e:
                 Utils.print_error("KafkaProducerChanges", "request fail", e)
         producer.flush()

@@ -40,7 +40,7 @@ def process_evas(evas, hour_slice, date, security_token):
                 if response.status_code == 200:
                     producer.send(topic=Utils.topic_timetable_planned, value=response.content)
                 else:
-                    Utils.print_error("KafkaProducerPlanned", "request fail with code " + response.status_code)
+                    Utils.print_error("KafkaProducerPlanned", "request fail with code " + str(response.status_code))
             except Exception as e:
                 Utils.print_error("KafkaProducerPlanned", "request fail", e)
     # wait until every producer send his data
