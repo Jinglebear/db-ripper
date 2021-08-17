@@ -110,7 +110,7 @@ def get_eva_numbers():
             line_arr = line.strip().split(",")
             eva_numbers.append(line_arr[1])
         except Exception as e:
-            print_error("Utils", "Error while extracting eva_numbers - " + e)
+            print_error("Utils", "Error while extracting eva_numbers", e)
     return eva_numbers
     
 #extract cityName out of the csv file for WeatherApi
@@ -123,7 +123,7 @@ def get_city_name_weather():
             if line_arr[3] not in city_names:
                 city_names.append(line_arr[3])
         except Exception as e:
-            print_error("Utils", "Error while extracting city - " + e)
+            print_error("Utils", "Error while extracting city", e)
     return city_names
 
 # get coordinates for a specific station
@@ -196,7 +196,7 @@ def create_index(_es, index_name=es_default_index):
             _es.indices.create(index=index_name, ignore=400, body=es_index_settings)
         created = True
     except Exception as ex:
-        print_error(source="Utils" , message="error in create_index:"+ex)
+        print_error(source="Utils" , message="error in create_index", error=ex)
 
     return created
 
@@ -204,8 +204,8 @@ def create_index(_es, index_name=es_default_index):
 # Logging
 timestamp_format = "%Y-%m-%dT%H:%M:%S"
 
-def print_error(source, message):
-    print("#", datetime.now().strftime(timestamp_format), source, "-", message, file=sys.stderr)
+def print_error(source, message, error=None):
+    print("#", datetime.now().strftime(timestamp_format), source, "-", message, "-", error, file=sys.stderr)
 
 def print_log(source, message):
     print("#", datetime.now().strftime(timestamp_format), source, "-", message)

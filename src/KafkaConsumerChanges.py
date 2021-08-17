@@ -141,7 +141,7 @@ def extract_time_diff(xml_element_tree, plan, prefix):
         if time_diff >= 7640:
             time_diff = time_diff - 7640
         # save time diff in plan object
-        plan[prefix+'TimeDiff']
+        plan[prefix+'TimeDiff'] = time_diff
 
 # add message of code in plan
 def add_code(message, plan, name):
@@ -198,7 +198,10 @@ Utils.print_log("KafkaConsumerChanges", "start consumer")
 consumer = KafkaConsumer(Utils.topic_timetable_changed, group_id='db_ripper', bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    message_value = message.value
-    message_value_as_string = message_value.decode('utf-8')
-    thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
-    thread.start()
+    try:
+        message_value = message.value
+        message_value_as_string = message_value.decode('utf-8')
+        thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
+        thread.start()
+    except Exception as e:
+        Utils.print_error("KafkaConsumerChanges", "Error while factorize message", e)
