@@ -126,10 +126,10 @@ def get_city_name_weather():
             print_error("Utils", "Error while extracting city", e)
     return city_names
 
-# get coordinates for a specific station
+# get coordinates and city name for a specific station
 # @param station_name string: name of an specific station
 # @return coordinates
-def get_location(station_name):
+def get_city_info(station_name):
     station_data = []
     file = city_coordinates_read()
     reader = csv.reader(file)
@@ -139,8 +139,11 @@ def get_location(station_name):
     for station in station_data:
         if(station[0] == station_name):
             coordinates_data = ast.literal_eval(station[3])
-            coordinates = coordinates_data.get("coordinates")
-            return coordinates
+            city_info = {
+                "location": coordinates_data.get("coordinates"),
+                "cityname": station[2]
+            }
+            return city_info
 
 # =====================================
 ## Elasticsearch

@@ -51,7 +51,9 @@ def factorize_message(xml_string):
             train_information = {}
 
             # location coordinates with lon and lan for elasticsearch
-            train_information['location'] = Utils.get_location(train_station)
+            city_info = Utils.get_city_info(train_station)
+            train_information['location'] = city_info.get('location')
+            train_information['city'] = city_info.get('cityname')
             # timestamp for elasticsearch
             train_information['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 

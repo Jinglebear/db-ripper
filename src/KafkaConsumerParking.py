@@ -47,7 +47,9 @@ def extract_space_data(response):
             parking_information['parkingCategory'] = allocation_category
             parking_information['event'] = 'parking'
             ##array consisting of long and lat
-            parking_information['location']= Utils.get_location(allocation_station_name)
+            city_info = Utils.get_city_info(allocation_station_name)
+            parking_information['location'] = city_info.get('location')
+            parking_information['city'] = city_info.get('cityname')
             #create timestamp for elastic search
             current_dt = datetime.now()
             current_dt_formated = current_dt.strftime("%Y-%m-%dT%H:%M:%S")
