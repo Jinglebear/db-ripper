@@ -18,8 +18,7 @@ authToken2 = 'Bearer 873be58d3db312b4e52a2102e5641c27'
 # tokens for Weather API
 tokens_weather = ["4d4e132b78899f18d0700d9786497acc", "f5dc99de2bd1e62827186cd0a59c969e", "83c4e7d593ba0a1557f8af1a0fe3e275",
                     "f80a8c8cf872626d896aaa5b1393ad0f", "db0a5045afe248adad429a54d3c32211", "c8160151557119cd85dbfbbb61f8c80a",
-                    "2586b6e78610fa056868e8c2c903c7bc", "6224561d28db0ed922417fb668145c0f", "6224561d28db0ed922417fb668145c0f",
-                    "ffeead68165685a1fe21c5b283821e69"]
+                    "2586b6e78610fa056868e8c2c903c7bc", "6224561d28db0ed922417fb668145c0f", "ffeead68165685a1fe21c5b283821e69"]
 
 # tokens for Timetable API and Parking API
 tokens_timetable_parking = ["Bearer 8101a6e392e28be9d112af1290bff9f0", "Bearer 31af1d273c3526061bd71031b3d16f5b", "Bearer c5b449234cafede57995910183a53e21",
