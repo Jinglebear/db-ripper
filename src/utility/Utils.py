@@ -94,15 +94,12 @@ bootstrap_servers = ['localhost:29092']
 ## config files
 # open csv file with information about station (eva_number, station category, city)
 # @return read access to this file
-def city_information_read():
-    return open('/home/bigdata/db-ripper/misc/table-2-sorted(category4).csv', 'r')
-
-def city_coordinates_read():
-    return open('/home/bigdata/db-ripper/misc/test_table_result.csv', 'r')
+def information_file_read():
+    return open('/home/bigdata/db-ripper/misc/joined_tables.csv', 'r')
 
 # exctract eva number out of the csv file
 def get_eva_numbers():
-    csvfile = city_information_read()
+    csvfile = information_file_read()
     eva_numbers = []
     for line in csvfile:
         try:
@@ -114,7 +111,7 @@ def get_eva_numbers():
     
 #extract cityName out of the csv file for WeatherApi
 def get_city_name_weather():
-    csvfile = city_information_read()
+    csvfile = information_file_read()
     city_names=[]
     for line in csvfile:
         try:
@@ -130,17 +127,17 @@ def get_city_name_weather():
 # @return coordinates
 def get_city_info(station_name):
     station_data = []
-    file = city_coordinates_read()
+    file = information_file_read()
     reader = csv.reader(file)
     for row in reader:
         station_data.append(row)
 
     for station in station_data:
         if(station[0] == station_name):
-            coordinates_data = ast.literal_eval(station[3])
+            coordinates_data = ast.literal_eval(station[4])
             city_info = {
                 "location": coordinates_data.get("coordinates"),
-                "cityname": station[2]
+                "cityname": station[3]
             }
             return city_info
 
