@@ -34,15 +34,6 @@ def work_thread(eva_numbers, security_token):
 ## Work
 try:
     Utils.print_log("KafkaProducerChanges", "start work")
-    # Produce information end send to kafka
-    # preparatory work: set hourslice and date
-    start = datetime.now()
-    hour_slice = start.hour
-    # date in format: YYMMDD
-    date = (str(start.year%1000) + 
-        (('0'+str(start.month)) if (start.month<10) else (str(start.month))) + 
-        (('0'+str(start.day)) if (start.day<10) else (str(start.day))))
-
     ##Work
     # load eva numbers
     evas = Utils.get_eva_numbers()
