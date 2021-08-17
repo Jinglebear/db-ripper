@@ -51,7 +51,9 @@ def factorize_message(xml_string):
             train_information = {}
 
             # location coordinates with lon and lan for elasticsearch
-            train_information['location'] = Utils.get_location(train_station)
+            city_info = Utils.get_city_info(train_station)
+            train_information['location'] = city_info.get('location')
+            train_information['city'] = city_info.get('cityname')
             # timestamp for elasticsearch
             train_information['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
@@ -84,7 +86,9 @@ Utils.print_log("KafkaConsumerPlanned", "start consumer")
 consumer = KafkaConsumer(Utils.topic_timetable_planned, group_id='db_ripper' , bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    message_value = message.value
-    message_value_as_string = message_value.decode('utf-8')
-    thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
-    thread.start()
+    try:
+        message_value = message.value
+        message_value_as_string = message_value.decode('utf-8')
+        factorize_message(message_value_as_string)
+    except Exception as e:
+        Utils.print_error("KafkaConsumerPlanned", "error while factorize kafka message", e)
