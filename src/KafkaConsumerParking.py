@@ -63,8 +63,11 @@ def extract_space_data(response):
 consumer = KafkaConsumer(Utils.topic_parking, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
-    extract_space_data(json.loads(messageValueAsString))
+    try:
+        messageValue = message.value
+        messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
+        extract_space_data(json.loads(messageValueAsString))
+    except Exception as e:
+        Utils.print_error("KafkaConsumerParking", "Error while processing kafka message", e)
 
     
