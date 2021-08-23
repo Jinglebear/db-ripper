@@ -8,10 +8,6 @@ try:
 except Exception as e:
     Utils.print_error("KafkaProducerParking : Error while import :", e)
 
-# callback of kafka if send successfull
-def send_on_success(record_metadata):
-    Utils.print_log("KafkaProducerParking", 'topic: '+ record_metadata.topic + ' partition: ' + record_metadata.partition)
-
 def process_parking_ids(request_string, header):
     # create producer
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
@@ -19,9 +15,7 @@ def process_parking_ids(request_string, header):
         # api request
         response = requests.get(request_string, headers=header)
         if(response.status_code == 200):
-            producer.send(topic=Utils.topic_parking,
-                          value=response.content).add_callback(send_on_success)
-            print(json.dumps(response.text,indent=5))
+            producer.send(topic=Utils.topic_parking,value=response.content)
         else:
             Utils.print_error("KafkaProducerParking", "request fail with code " + str(response.status_code))
     except Exception as e:
