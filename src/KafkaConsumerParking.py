@@ -6,7 +6,7 @@ try:
     import sys
     import json
 except Exception as e:
-    Utils.print_error("KafkaConsumerParking", "Error while import - " + e)
+    Utils.print_error("KafkaConsumerParking", "Error while import", e)
 
 
 # save incoming json on elasticsearch
@@ -23,7 +23,7 @@ def save_on_elasticsearch(parking_space_json, id):
     try:
         _es.index(Utils.es_default_index, body=parking_space_json)
     except Exception as e:
-        print("#", datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"KafkaConsumerParking: Error while indexing data.", e, file=sys.stderr)
+        Utils.print_error("KafkaConsumerParking", "Error while indexing data", e)
 
 import csv
 
@@ -47,7 +47,9 @@ def extract_space_data(response):
             parking_information['parkingCategory'] = allocation_category
             parking_information['event'] = 'parking'
             ##array consisting of long and lat
-            parking_information['location']= Utils.get_location(allocation_station_name)
+            city_info = Utils.get_city_info(allocation_station_name)
+            parking_information['location'] = city_info.get('location')
+            parking_information['city'] = city_info.get('cityname')
             #create timestamp for elastic search
             current_dt = datetime.now()
             current_dt_formated = current_dt.strftime("%Y-%m-%dT%H:%M:%S")
@@ -61,8 +63,11 @@ def extract_space_data(response):
 consumer = KafkaConsumer(Utils.topic_parking, group_id='db_ripper',bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    messageValue = message.value
-    messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
-    extract_space_data(json.loads(messageValueAsString))
+    try:
+        messageValue = message.value
+        messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
+        extract_space_data(json.loads(messageValueAsString))
+    except Exception as e:
+        Utils.print_error("KafkaConsumerParking", "Error while processing kafka message", e)
 
     

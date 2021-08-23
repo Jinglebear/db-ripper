@@ -9,7 +9,7 @@ try:
     import json
     import threading
 except Exception as e:
-    Utils.print_error("KafkaConsumerChanges", "Error while import - " + e)
+    Utils.print_error("KafkaConsumerChanges", "Error while import", e)
 
 # message code dictionary
 code_dict = {
@@ -19,7 +19,72 @@ code_dict = {
     "4": "kurzfristiger Personalausfall",
     "5": "ärztliche Versorgung eines Fahrgastes",
     "6": "Notbremse",
-    "7": "Personen im Gleis"
+    "7": "Personen im Gleis",
+    "8": "Notarzteinsatz am Gleis",
+    "9": "Streikauswirkung",
+    "10": "Tiere im Gleis",
+    "11": "Unwetter",
+    "12": "Warten auf verspätetes Schiff",
+    "13": "Pass- und Zollkontrolle",
+    "14": "Technische Störung ",
+    "15": "Beeinträchtigung durch Vandalismus",
+    "16": "Entschärfung einer Fliegerbombe",
+    "17": "Beschädigung einer Brücke",
+    "18": "umgestürzter Baum im Gleis",
+    "19": "Unfall an einem Bahnhübergang",
+    "20": "Tiere im Gleis",
+    "21": "Warten auf Fahrgäste aus einem anderen Zug",
+    "22": "Witterungsbedingte Störung",
+    "23": "Feuerwehreinsatz auf Bahngelände",
+    "24": "Verspätung im Ausland",
+    "25": "Warten auf weitere Wagen",
+    "28": "Gegenstände im Gleis",
+    "31": "Bauarbeiten",
+    "32": "Verzögerung beim Ein-/Ausstieg",
+    "33": "Oberleitungsstörung",
+    "34": "Signalstörung",
+    "35": "Streckensperrung",
+    "36": "technische Störung am Zug",
+    "38": "technische Störung an der Strecke",
+    "39": "Anhängen von zusätzlichen Wagen",
+    "40": "Stellwerksstörung/-ausfall",
+    "41": "Störung an einem Bahnübergang",
+    "42": "außerplanmäßige Geschwindigkeitsbeschränkung",
+    "43": "Verspätung eines vorausfahrenden Zuges",
+    "44": "Warten auf entgegenkommenden Zug",
+    "45": "Überholung",
+    "46": "Warten auf freie Einfahrt",
+    "47": "verspätete Bereitstellung des Zuges",
+    "48": "Verspätung aus vorheriger Fahrt",
+    "55": "technische Störung an einem anderen Zug",
+    "56": "Warten auf Fahrgäste aus einem Bus",
+    "57": "Zusätzlicher Halt zum Ein-/Ausstieg für Reisende",
+    "58": "Umleitung des Zuges",
+    "59": "Schnee und Eis",
+    "60": "Reduzierte Geschwindigkeit wegen Sturm",
+    "61": "Türstörung",
+    "62": "behobene technische Störung am Zug",
+    "63": "technische Untersuchung am Zug",
+    "64": "Weichenstörung",
+    "65": "Erdrutsch",
+    "66": "Hochwasser",
+    "70": "WLAN nicht verfügbar",
+    "71": "WLAN nicht verfügbar",
+    "72": "Info-/Entertainment nicht verfügbar",
+    "77": "ohne 1. Klasse",
+    "80": "andere Reihenfolge der Wagen",
+    "82": "Wagen fehlen",
+    "83": "Störung fahrzeuggebundene Einstiegshilfe",
+    "85": "Wagen fehlen",
+    "86": "Zug ohne Reservierung",
+    "87": "Zug ohne Reservierung",
+    "90": "kein gastronomisches Angebot",
+    "91": "fehlende Fahrradbeförderung",
+    "92": "eingeschränkte Fahrradbeförderung",
+    "93": "keine behindertengerechte Einrichtung",
+    "95": "ohne behindertengerechtes WC",
+    "98": "sonstige Qualitätsmangel",
+    "99": "Verzögerung im Betriebsablauf"
 }
 
 def get_from_elasticsearch(id):
@@ -76,7 +141,7 @@ def extract_time_diff(xml_element_tree, plan, prefix):
         if time_diff >= 7640:
             time_diff = time_diff - 7640
         # save time diff in plan object
-        plan[prefix+'TimeDiff']
+        plan[prefix+'TimeDiff'] = time_diff
 
 # add message of code in plan
 def add_code(message, plan, name):
@@ -120,20 +185,23 @@ def factorize_message(xml_string):
                     add_code(name = "reasonForDelay", message = message, plan = plan)
 
         except Exception as e:
-            Utils.print_error("KafkaConsumerChanges", "Error in processing kafka message -" + e)
+            Utils.print_error("KafkaConsumerChanges", "Error in processing kafka message", e)
             
         try:
             # update plan object in elasticsearch
             save_on_elasticsearch(plan, sid)
         except Exception as e:
-            Utils.print_error("KafkaConsumerChanges", "Error while save on elasticsearch - " + e)
+            Utils.print_error("KafkaConsumerChanges", "Error while save on elasticsearch", e)
             
 ## Work
 Utils.print_log("KafkaConsumerChanges", "start consumer")
 consumer = KafkaConsumer(Utils.topic_timetable_changed, group_id='db_ripper', bootstrap_servers=Utils.bootstrap_servers)
 
 for message in consumer:
-    message_value = message.value
-    message_value_as_string = message_value.decode('utf-8')
-    thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
-    thread.start()
+    try:
+        message_value = message.value
+        message_value_as_string = message_value.decode('utf-8')
+        thread = threading.Thread(target=factorize_message, args=(message_value_as_string,))
+        thread.start()
+    except Exception as e:
+        Utils.print_error("KafkaConsumerChanges", "Error while factorize message", e)

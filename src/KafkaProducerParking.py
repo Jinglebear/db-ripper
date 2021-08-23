@@ -6,7 +6,7 @@ try:
     from datetime import datetime
     import json
 except Exception as e:
-    Utils.print_error("KafkaProducerParking", "Error while import - " + e)
+    Utils.print_error("KafkaProducerParking", "Error while import", e)
 
 # callback of kafka if send successfull
 def send_on_success(record_metadata):
@@ -23,9 +23,9 @@ def process_parking_ids(request_string, header):
                           value=response.content).add_callback(send_on_success)
             print(json.dumps(response.content,indent=10))
         else:
-            Utils.print_error("KafkaProducerParking", "request fail with code " + response.status_code)
+            Utils.print_error("KafkaProducerParking", "request fail with code " + str(response.status_code))
     except Exception as e:
-        Utils.print_error("KafkaProducerParking", "request fail - " + e)
+        Utils.print_error("KafkaProducerParking", "request fail", e)
     # wait until every producer send his data
     producer.flush()
 
@@ -33,8 +33,13 @@ def process_parking_ids(request_string, header):
 # ============================
 # Main
 try:
+    #header for Parking API
+    parking_header={
+        'Accept': 'application/json;charset=utf-8',
+        'Authorization': 'Bearer 3ec4fe9e97f2626ab9f33c4c3eacdbb6'
+    }
     # function call
     process_parking_ids(request_string=Utils.get_parking_url(),
-                        header=Utils.ParkingHeader)
+                        header=parking_header)
 except Exception as e:
     Utils.print_error("KafkaProducerParking", e)

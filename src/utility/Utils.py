@@ -18,8 +18,7 @@ authToken2 = 'Bearer 873be58d3db312b4e52a2102e5641c27'
 # tokens for Weather API
 tokens_weather = ["4d4e132b78899f18d0700d9786497acc", "f5dc99de2bd1e62827186cd0a59c969e", "83c4e7d593ba0a1557f8af1a0fe3e275",
                     "f80a8c8cf872626d896aaa5b1393ad0f", "db0a5045afe248adad429a54d3c32211", "c8160151557119cd85dbfbbb61f8c80a",
-                    "2586b6e78610fa056868e8c2c903c7bc", "6224561d28db0ed922417fb668145c0f", "6224561d28db0ed922417fb668145c0f",
-                    "ffeead68165685a1fe21c5b283821e69"]
+                    "2586b6e78610fa056868e8c2c903c7bc", "6224561d28db0ed922417fb668145c0f", "ffeead68165685a1fe21c5b283821e69"]
 
 # tokens for Timetable API and Parking API
 tokens_timetable_parking = ["Bearer 8101a6e392e28be9d112af1290bff9f0", "Bearer 31af1d273c3526061bd71031b3d16f5b", "Bearer c5b449234cafede57995910183a53e21",
@@ -95,27 +94,24 @@ bootstrap_servers = ['localhost:29092']
 ## config files
 # open csv file with information about station (eva_number, station category, city)
 # @return read access to this file
-def city_information_read():
-    return open('/home/bigdata/db-ripper/misc/table-2-sorted(category4).csv', 'r')
-
-def city_coordinates_read():
-    return open('/home/bigdata/db-ripper/misc/test_table_result.csv', 'r')
+def information_file_read():
+    return open('/home/bigdata/db-ripper/misc/joined_tables.csv', 'r')
 
 # exctract eva number out of the csv file
 def get_eva_numbers():
-    csvfile = city_information_read()
+    csvfile = information_file_read()
     eva_numbers = []
     for line in csvfile:
         try:
             line_arr = line.strip().split(",")
             eva_numbers.append(line_arr[1])
         except Exception as e:
-            print_error("Utils", "Error while extracting eva_numbers - " + e)
+            print_error("Utils", "Error while extracting eva_numbers", e)
     return eva_numbers
     
 #extract cityName out of the csv file for WeatherApi
 def get_city_name_weather():
-    csvfile = city_information_read()
+    csvfile = information_file_read()
     city_names=[]
     for line in csvfile:
         try:
@@ -123,24 +119,27 @@ def get_city_name_weather():
             if line_arr[3] not in city_names:
                 city_names.append(line_arr[3])
         except Exception as e:
-            print_error("Utils", "Error while extracting city - " + e)
+            print_error("Utils", "Error while extracting city", e)
     return city_names
 
-# get coordinates for a specific station
+# get coordinates and city name for a specific station
 # @param station_name string: name of an specific station
 # @return coordinates
-def get_location(station_name):
+def get_city_info(station_name):
     station_data = []
-    file = city_coordinates_read()
+    file = information_file_read()
     reader = csv.reader(file)
     for row in reader:
         station_data.append(row)
 
     for station in station_data:
         if(station[0] == station_name):
-            coordinates_data = ast.literal_eval(station[3])
-            coordinates = coordinates_data.get("coordinates")
-            return coordinates
+            coordinates_data = ast.literal_eval(station[4])
+            city_info = {
+                "location": coordinates_data.get("coordinates"),
+                "cityname": station[3]
+            }
+            return city_info
 
 # =====================================
 ## Elasticsearch
@@ -196,7 +195,7 @@ def create_index(_es, index_name=es_default_index):
             _es.indices.create(index=index_name, ignore=400, body=es_index_settings)
         created = True
     except Exception as ex:
-        print_error(source="Utils" , message="error in create_index:"+ex)
+        print_error(source="Utils" , message="error in create_index", error=ex)
 
     return created
 
@@ -204,8 +203,8 @@ def create_index(_es, index_name=es_default_index):
 # Logging
 timestamp_format = "%Y-%m-%dT%H:%M:%S"
 
-def print_error(source, message):
-    print("#", datetime.now().strftime(timestamp_format), source, "-", message, file=sys.stderr)
+def print_error(source, message, error=None):
+    print("#", datetime.now().strftime(timestamp_format), source, "-", message, "-", error, file=sys.stderr)
 
 def print_log(source, message):
     print("#", datetime.now().strftime(timestamp_format), source, "-", message)
