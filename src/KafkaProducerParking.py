@@ -4,6 +4,7 @@ try:
     from kafka import KafkaProducer    
     import requests
     from datetime import datetime
+    import json
 except Exception as e:
     Utils.print_error("KafkaProducerParking", "Error while import - " + e)
 
@@ -20,6 +21,7 @@ def process_parking_ids(request_string, header):
         if(response.status_code == 200):
             producer.send(topic=Utils.topic_parking,
                           value=response.content).add_callback(send_on_success)
+            print(json.dumps(response.content,indent=10))
         else:
             Utils.print_error("KafkaProducerParking", "request fail with code " + response.status_code)
     except Exception as e:
@@ -35,4 +37,4 @@ try:
     process_parking_ids(request_string=Utils.get_parking_url(),
                         header=Utils.ParkingHeader)
 except Exception as e:
-    Utils.print_error("KafkaProducerParking", "Error while main")
+    Utils.print_error("KafkaProducerParking", e)
