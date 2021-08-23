@@ -68,6 +68,6 @@ for message in consumer:
         messageValueAsString = messageValue.decode('utf-8').replace("'",'"')
         extract_space_data(json.loads(messageValueAsString))
     except Exception as e:
-        Utils.print_error("KafkaConsumerParking", "Error while processing kafka message", e)
+        Utils.print_error("KafkaConsumerParking : Error while processing Kafka Message:", e)
 
     
