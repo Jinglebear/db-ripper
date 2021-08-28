@@ -8,6 +8,8 @@ try:
 except Exception as e:
     Utils.print_error("KafkaProducerParking : Error while import :", e)
 
+
+# make the API request to db-parking api 
 def process_parking_ids(request_string, header):
     # create producer
     producer = KafkaProducer(bootstrap_servers=Utils.bootstrap_servers)
