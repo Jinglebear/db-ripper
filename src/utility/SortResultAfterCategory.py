@@ -8,7 +8,7 @@ import csv
 # -->table-1-sorted(category4).csv
 
 # read in the stations
-def readStation(filename):
+def read_station(filename):
     stations = []
     with open(filename, encoding='utf-8') as file:
         reader = csv.reader(file)
@@ -16,7 +16,7 @@ def readStation(filename):
             station_triplet = (row[0], row[1], row[2])
             stations.append(station_triplet)
     return stations
-stations = readStation("..\\misc\\table-1-result.csv")
+stations = read_station("..\\misc\\table-1-result.csv")
 
 # sort out all stations with cat 5 or higher
 # write result
