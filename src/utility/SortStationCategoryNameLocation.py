@@ -1,6 +1,13 @@
 import csv
 from os import read, write
-def readStation(filename):
+
+# ====================================================================
+# **Description**
+# This scripts takes a list of train stations and filters out all train
+# stations that have a category of 5 and higher
+# results are being written to a file
+
+def read_station(filename):
     stations=[]
     with open(file=filename, encoding='utf-8') as file:
         reader = csv.reader(file)
@@ -13,7 +20,7 @@ def readStation(filename):
             #add station to the array of stations
             stations.append(station)
     return stations
-stations = readStation("..\\..\\misc\\test_table_result.csv")
+stations = read_station("..\\..\\misc\\test_table_result.csv")
 
 with open("..\\..\\misc\\table_stations_location_sorted.csv","w",newline='',encoding='utf-8')as outputfile:
     writer = csv.writer(outputfile)

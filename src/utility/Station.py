@@ -4,12 +4,17 @@ import csv
 import sys
 from itertools import groupby
 
-def all_equal(counterArr):
-    g = groupby(counterArr)
+# ====================================================================
+# **Description**
+# This script calls the db-api 'stations' to get all api identifiers
+# called eva-numbers to the matching train station 
+
+def all_equal(counter_arr):
+    g = groupby(counter_arr)
     return next(g,True) and not next(g,False)
 
 
-def readStation(filename):
+def read_station(filename):
     stations = []
     with open(filename, encoding='utf-8') as file:
         skip = True  # skip first row of csv file
@@ -25,55 +30,55 @@ def readStation(filename):
 
 
 # array with the important station data
-stations = readStation("..\\misc\\Mappe1.csv")
+stations = read_station("..\\misc\\Mappe1.csv")
 
 
-def getEvaNum(station, base_request_string, header, resultArr, failArr):
+def get_eva_num(station, base_request_string, header, result_arr, fail_arr):
     response = requests.get(
         base_request_string+station[1], headers=header)
     response_status_code = response.status_code
     response = response.json()  # json encoding of response
     if(response_status_code == 200):  # sucessful response code
-        evaNumber = response['result'][0]['evaNumbers'][0]['number']
-        eva_triplet = (station[0], evaNumber, station[2])
-        resultArr.append(eva_triplet)
+        eva_number = response['result'][0]['evaNumbers'][0]['number']
+        eva_triplet = (station[0], eva_number, station[2])
+        result_arr.append(eva_triplet)
         #print(eva_triplet, flush=True)  # debug
     else:
         print("ERROR: "+str(response_status_code), flush=True)  # debug
-        failArr.append(station)
+        fail_arr.append(station)
 
 
-def computeEvaNums(stations, base_request_string, headers, resultArr, failArr, counterArr):
+def compute_eva_nums(stations, base_request_string, headers, result_arr, fail_arr, counter_arr):
     control = 0
     for station in stations:
         
         control +=1
         print(control,flush=True)
         try:
-            for i in range(len(counterArr)):
-                if(counterArr[i] < 100):
-                    counterArr[i] +=1
-                    getEvaNum(station=station, base_request_string=base_request_string,
-                    header=headers[i], resultArr=resultArr, failArr=failArr)
+            for i in range(len(counter_arr)):
+                if(counter_arr[i] < 100):
+                    counter_arr[i] +=1
+                    get_eva_num(station=station, base_request_string=base_request_string,
+                    header=headers[i], result_arr=result_arr, fail_arr=fail_arr)
                     break
-            sleep = all_equal(counterArr=counterArr)
+            sleep = all_equal(counter_arr=counter_arr)
             if(sleep):
                 print("<<<<<<<<<<<<<<SLEEPING>>>>>>>>>>>>>>>>",flush=True)
                 time.sleep(61)
-                for j in range(len(counterArr)):
-                    counterArr[j] = 0
+                for j in range(len(counter_arr)):
+                    counter_arr[j] = 0
         except IndexError:
             print("ERROR: IndexError", flush=True)  # debug
-            failArr.append(station)
-            failArr.append("(IndexError)")
+            fail_arr.append(station)
+            fail_arr.append("(IndexError)")
         except:
             e = sys.exc_info()
             print(e)
 
 
 base_request_string = "https://api.deutschebahn.com/stada/v2/stations/"
-resultArr = []
-failArr = []
+result_arr = []
+fail_arr = []
 tokenArr = ['Bearer c63151b12eb8b7a48ef869a72c77c15f', 'Bearer 0548da9b09541d93c01c2685f5e8a611',
             'Bearer 9813ceeae64e273dca14d615405395d7', 'Bearer 194291fed31c8daf95c8d45f22254399',
             'Bearer fca48279e7030608b9799ab4e84c8975', 'Bearer b4a1b8aa689f4b1f2666af53a1b592ab',
@@ -82,16 +87,16 @@ headers_arr =[]
 for token in tokenArr:
     header = {'Accept':'application/json', 'Authorization' : token}
     headers_arr.append(header)
-counterArr =[]
+counter_arr =[]
 for i in range(8):
-    counterArr.append(0)
+    counter_arr.append(0)
 
-computeEvaNums(stations, base_request_string, headers_arr, resultArr, failArr,counterArr=counterArr)
+compute_eva_nums(stations, base_request_string, headers_arr, result_arr, fail_arr,counter_arr=counter_arr)
 with open("..\\misc\\table-1-result.csv", "w", newline='', encoding='utf-8') as resultfile:
     writer = csv.writer(resultfile)
-    for result in resultArr:
+    for result in result_arr:
         writer.writerow(result)
 with open("..\\misc\\table-1-fail.csv", "w", newline='', encoding='utf-8') as failfile:
     writer = csv.writer(failfile)
-    for fail in failArr:
+    for fail in fail_arr:
         writer.writerow(fail)

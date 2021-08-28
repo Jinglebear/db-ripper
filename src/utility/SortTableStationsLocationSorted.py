@@ -1,5 +1,11 @@
 import csv
-def readStation(filename):
+
+# ====================================================================
+# **Description**
+# This scripts takes a list of train stations and sorts it with the 
+# python sort() method
+
+def read_station(filename):
     stations=[]
     with open(file=filename, encoding='utf-8') as file:
         reader = csv.reader(file)
@@ -12,7 +18,7 @@ def readStation(filename):
             #add station to the array of stations
             stations.append(station)
     return stations
-stations = readStation("..\\..\\misc\\table_stations_location_sorted.csv")
+stations = read_station("..\\..\\misc\\table_stations_location_sorted.csv")
 
 stations.sort()
 
